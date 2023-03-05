@@ -51,6 +51,7 @@ const handleSearchResultClicked = (recipeName: string) => {
 
 const fetchData = async () => {
     if (selectedRecipeRequest.value == undefined) return;
+    if (selectedRecipeRequest.value.Rate <= 0) return;
 
     const reqBody = [selectedRecipeRequest.value]
 

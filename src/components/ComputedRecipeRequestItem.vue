@@ -26,12 +26,13 @@ const handleInput = debounce((value: string) => {
 <template>
     <li class="rounded-md bg-black text-green-500 p-3 hover:bg-slate-700">
         <button class="flex flex-row w-full " @click="$emit('click', recipeRequest)">
-            <div class="flex-1 text-left">
+            <div class="flex-1 text-left mr-3">
                 {{ recipeRequest.Name }}
             </div>
 
-            <input class="flex-initial w-10 rounded-md text-right px-0.5 ml-5" type="number" placeholder="1.0" :value="rate"
-                @input="handleInput(($event.target as HTMLInputElement).value)" /> <span class="ml-0.5">/s</span>
+            <input class="text-black flex-initial w-10 rounded-md text-right px-0.5 outline-none" type="number"
+                placeholder="1.0" :value="rate" @input="handleInput(($event.target as HTMLInputElement).value)" /> <span
+                class="ml-0.5">/s</span>
             <button class="flex-initial ml-2 text-center rounded-md" @click="handleDelete">
                 <font-awesome-icon icon="fa-solid fa-trash" />
             </button>
