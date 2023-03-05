@@ -39,8 +39,6 @@ recipesStore.$subscribe(async () => {
     await fetchData()
 });
 
-console.log("GROUP RECIPES 2", recipesStore.groupRecipes)
-
 </script>
 
 <template>

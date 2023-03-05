@@ -11,9 +11,6 @@ const props = defineProps<{
 <template>
     <Card>
         <template #header>
-            <i>
-                {{ icon }}
-            </i>
             <slot name="header"></slot>
         </template>
         <template #message>

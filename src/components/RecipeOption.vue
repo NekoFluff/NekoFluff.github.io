@@ -15,7 +15,7 @@ const handleAddRequirement = (index: number) => {
 }
 
 const calculateIsSelected = () => {
-    const requirements = recipesStore.recipeRequests[props.recipeRequest.Name].Requirements
+    const requirements = props.recipeRequest.Requirements
     const selectedIdx = requirements[props.recipeOption.OutputItem]
     return selectedIdx === props.index || selectedIdx === undefined && props.index == 0
 }

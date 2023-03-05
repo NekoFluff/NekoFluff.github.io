@@ -1,7 +1,6 @@
 <script setup lang="ts">
 // import TheWelcome from "../components/TheWelcome.vue";
 import ComputedRecipeRequestList from "@/components/ComputedRecipeRequestItemList.vue";
-import RecipeList from "@/components/RecipeItemList.vue";
 import SearchBar from "@/components/SearchBar.vue"
 
 import axios from 'axios';
@@ -22,21 +21,9 @@ export interface Recipe {
 
 const recipesStore = useRecipesStore()
 
-recipesStore.$subscribe(() => {
-    text.value = ""
-})
-
-let text = ref<string>("")
-
-const filteredRecipes = computed(() => {
-    if (text.value === "") { return [] }
-
-    return recipesStore.recipes.filter((recipe) => { return recipe[0].OutputItem.toLowerCase().includes(text.value.toLocaleLowerCase()) })
-})
-
-const handleUpdate = debounce((updatedText: string) => {
-    text.value = updatedText
-}, 500)
+// recipesStore.$subscribe(() => {
+//     text.value = ""
+// })
 
 axios.get<Recipe[][]>('https://alex-api.herokuapp.com/dsp/recipes')
     .then((resp) => {
@@ -46,15 +33,24 @@ axios.get<Recipe[][]>('https://alex-api.herokuapp.com/dsp/recipes')
         console.log('An error occurred', ex)
     })
 
+const handleSearchResultClicked = (recipeName: string) => {
+    recipesStore.addRequest({
+        Name: recipeName,
+        Rate: 1,
+        RecipeOptions: recipesStore.recipeMap[recipeName],
+        Requirements: {}
+    })
+}
+
 </script>
 
 <template>
     <div class="flex flex-col">
 
-        <SearchBar class="flex" :text="text" @onUpdate="handleUpdate" />
-        <div v-if="Object.keys(recipesStore.recipeRequests).length > 0" class="ml-2 p-2 text-green-400">Grouped: <input
+        <SearchBar :options="recipesStore.recipes.map((recipeList) => recipeList[0].OutputItem).sort()"
+            @onSearchResultClick="handleSearchResultClicked" />
+        <div v-if="Object.keys(recipesStore.recipeRequests).length > 0" class="m-2 p-2 text-green-500">Grouped: <input
                 type="checkbox" v-model="recipesStore.groupRecipes" /></div>
-        <RecipeList :recipes="filteredRecipes"></RecipeList>
         <ComputedRecipeRequestList />
 </div>
 </template>

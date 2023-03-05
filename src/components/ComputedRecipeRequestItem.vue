@@ -5,7 +5,7 @@ import { debounce } from "lodash";
 import RecipeOptions from "./RecipeOptions.vue";
 import ComputedRecipeOutput from "./ComputedRecipeOutput.vue";
 
-const { removeRequest, addRequest } = useRecipesStore()
+const recipesStore = useRecipesStore()
 const props = defineProps<{
     recipeRequest: ComputedRecipeRequest;
 }>();
@@ -13,12 +13,12 @@ const props = defineProps<{
 const rate = ref(props.recipeRequest.Rate);
 
 const handleDelete = () => {
-    removeRequest(props.recipeRequest)
+    recipesStore.removeRequest(props.recipeRequest)
 }
 
 const handleInput = debounce((value: string) => {
     props.recipeRequest.Rate = Number(value)
-    addRequest(props.recipeRequest)
+    recipesStore.addRequest(props.recipeRequest)
 }, 500)
 
 </script>
