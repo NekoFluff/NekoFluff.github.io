@@ -10,6 +10,7 @@ import ComputedRecipeOutput, { type ComputedRecipe } from "@/components/Computed
 import { ref } from "vue";
 import RecipeOptionsCard from "@/components/RecipeOptionsCard.vue";
 import Section from "@/components/Section.vue";
+import { includes } from "lodash";
 
 export interface MaterialMap { [key: string]: number }
 
@@ -62,10 +63,14 @@ const fetchData = async () => {
 
 recipesStore.$subscribe(async () => {
     const recipeRequests = Object.keys(recipesStore.recipeRequests)
-
-    if (selectedRecipeRequest.value == undefined && recipeRequests.length > 0) {
-        selectedRecipeRequest.value = recipesStore.recipeRequests[recipeRequests[0]]
+    if (!includes(recipeRequests, selectedRecipeRequest.value?.Name)) {
+        if (recipeRequests.length > 0) {
+            selectedRecipeRequest.value = recipesStore.recipeRequests[recipeRequests[0]]
+        } else {
+            selectedRecipeRequest.value = undefined
+        }
     }
+
     await fetchData()
 });
 
@@ -80,9 +85,8 @@ recipesStore.$subscribe(async () => {
             <div class="text-sm ml-3">Grouped: <input class="ml-1" type="checkbox" v-model="recipesStore.groupRecipes" />
             </div>
         </Section>
-        <div class="flex justify-between">
+        <div v-if="selectedRecipeRequest != undefined" class="flex justify-between">
             <Section header="Want" class="flex-initial bg-black max-w-xs">
-
                 <ComputedRecipeRequestList :selectedRecipeRequest="selectedRecipeRequest"
                     @recipeRequestClick="handleRecipeRequestClicked" />
             </Section>
@@ -90,8 +94,7 @@ recipesStore.$subscribe(async () => {
                 <ComputedRecipeOutput :computedRecipes="computedRecipes" />
             </Section>
             <Section header="Alternate Recipes" class="flex-initial bg-black max-w-xs">
-                <div v-if="selectedRecipeRequest != undefined"
-                    v-for="recipeOptions of recipesStore.getRecipesWithOptions(computedRecipes)">
+                <div v-for="recipeOptions of recipesStore.getRecipesWithOptions(computedRecipes)">
                     <RecipeOptionsCard :recipeRequest="selectedRecipeRequest" :options="recipeOptions" />
                 </div>
             </Section>

@@ -7,7 +7,7 @@
 
         <div class="flex flex-col">
             <div class="font-bold">
-                <slot name="header">HEADER</slot>
+                <slot name="header"></slot>
             </div>
             <slot></slot>
             <div v-if="!!$slots.actions" class="mt-5 flex justify-end">

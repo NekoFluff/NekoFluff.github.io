@@ -19,10 +19,13 @@ defineProps<{
 </script>
 
 <template>
-    <div class="grid grid-cols-3">
-        <ComputedRecipeCard v-for="computedRecipe in computedRecipes" :computedRecipe="computedRecipe" />
-    </div>
+    <div v-if="computedRecipes.length > 0">
 
-    <div class="text-lg font-bold">JSON</div>
-    <textarea class="text-black h-96 w-full" readonly>{{ JSON.stringify(computedRecipes, null, 4) }}</textarea>
+        <div class="grid grid-cols-3">
+            <ComputedRecipeCard v-for="computedRecipe in computedRecipes" :computedRecipe="computedRecipe" />
+        </div>
+
+        <div class="text-lg font-bold">JSON</div>
+        <textarea class="text-black h-96 w-full" readonly>{{ JSON.stringify(computedRecipes, null, 4) }}</textarea>
+    </div>
 </template>

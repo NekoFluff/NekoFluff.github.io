@@ -8,7 +8,7 @@ const { recipeRequests } = useRecipesStore();
 defineEmits(["recipeRequestClick"])
 
 const props = defineProps<{
-    selectedRecipeRequest: ComputedRecipeRequest | undefined
+    selectedRecipeRequest: ComputedRecipeRequest
 }>()
 
 const isSelected = (recipeRequest: ComputedRecipeRequest) => {
