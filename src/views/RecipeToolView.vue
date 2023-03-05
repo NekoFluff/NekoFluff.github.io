@@ -26,7 +26,7 @@ recipesStore.$subscribe(() => {
     text.value = ""
 })
 
-let text = ref<string>("super")
+let text = ref<string>("")
 
 const filteredRecipes = computed(() => {
     if (text.value === "") { return [] }
