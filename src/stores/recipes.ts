@@ -12,8 +12,8 @@ export interface ComputedRecipeRequest {
 
 export const useRecipesStore = defineStore("recipes", () => {
     const recipes = ref<Recipe[][]>([])
-    const recipeMap = computed<{[key: string]: Recipe[]}>(() => {
-        const map: {[key: string]: Recipe[]} = {}
+    const recipeMap = computed<{ [key: string]: Recipe[] }>(() => {
+        const map: { [key: string]: Recipe[] } = {}
         for (const recipeList of recipes.value) {
             map[recipeList[0].OutputItem] = recipeList
         }
@@ -27,6 +27,7 @@ export const useRecipesStore = defineStore("recipes", () => {
     }
 
     function addRequest(req: ComputedRecipeRequest) {
+        console.log('addrequest', req)
         recipeRequests.value[req.Name] = req;
     }
 

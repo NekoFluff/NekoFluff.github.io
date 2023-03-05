@@ -21,7 +21,7 @@ defineProps<{
 <template>
     <div v-if="computedRecipes.length > 0">
 
-        <div class="grid grid-cols-3">
+        <div class="grid md:grid-cols-1 lg:grid-cols-3">
             <ComputedRecipeCard v-for="computedRecipe in computedRecipes" :computedRecipe="computedRecipe" />
         </div>
 

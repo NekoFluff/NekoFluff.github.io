@@ -91,7 +91,7 @@ recipesStore.$subscribe(async () => {
                 <ComputedRecipeRequestList :selectedRecipeRequest="selectedRecipeRequest"
                     @recipeRequestClick="handleRecipeRequestClicked" />
             </Section>
-            <Section header="Need" class="flex-1 bg-black mx-3">
+            <Section header="Need" class="flex-initial bg-black mx-3">
                 <ComputedRecipeOutput :computedRecipes="computedRecipes" />
             </Section>
             <Section header="Alternate Recipes" class="flex-initial bg-black max-w-xs">
