@@ -2,13 +2,13 @@
 import { useRecipesStore, type ComputedRecipeRequest } from "@/stores/recipes.js"
 import { ref } from "vue"
 import { debounce } from "lodash";
-import RecipeOptions from "./RecipeOptions.vue";
-import ComputedRecipeOutput from "./ComputedRecipeOutput.vue";
 
 const recipesStore = useRecipesStore()
 const props = defineProps<{
     recipeRequest: ComputedRecipeRequest;
 }>();
+
+defineEmits(["click"])
 
 const rate = ref(props.recipeRequest.Rate);
 
@@ -24,20 +24,17 @@ const handleInput = debounce((value: string) => {
 </script>
 
 <template>
-    <li class="rounded-md text-black bg-purple-400 shadow-lg m-3 p-3 flex flex-col">
-        <i>
-            <slot name="icon"></slot>
-        </i>
-        <div class="flex-1 font-bold">
-            {{ recipeRequest.Name }}
-        </div>
-        <RecipeOptions :recipeRequest="recipeRequest" :options="recipeRequest.RecipeOptions" />
+    <li class="rounded-md bg-black text-green-500 p-3 hover:bg-slate-700">
+        <button class="flex flex-row w-full " @click="$emit('click', recipeRequest)">
+            <div class="flex-1 text-left">
+                {{ recipeRequest.Name }}
+            </div>
 
-        <div class="w-full flex ">
-            <input class="rounded-md flex-auto text-right p-0.5" type="number" placeholder="1.0" :value="rate"
-                @input="handleInput(($event.target as HTMLInputElement).value)" /> <span class="ml-2 font-bold">/s</span>
-        </div>
-        <button class="my-2 py-2 text-center rounded-sm bg-red-600 w-full" @click="handleDelete">Remove</button>
-        <ComputedRecipeOutput :recipeRequest="recipeRequest" />
-</li>
+            <input class="flex-initial w-10 rounded-md text-right px-0.5 ml-5" type="number" placeholder="1.0" :value="rate"
+                @input="handleInput(($event.target as HTMLInputElement).value)" /> <span class="ml-0.5">/s</span>
+            <button class="flex-initial ml-2 text-center rounded-md" @click="handleDelete">
+                <font-awesome-icon icon="fa-solid fa-trash" />
+            </button>
+        </button>
+    </li>
 </template>

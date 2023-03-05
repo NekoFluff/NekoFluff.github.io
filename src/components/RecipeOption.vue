@@ -29,12 +29,11 @@ recipesStore.$subscribe(() => {
 </script>
 
 <template>
-    <button class="w-full  mt-2 mb-2 rounded-md p-2" :class="{ 'bg-green-400': isSelected, 'bg-slate-400': !isSelected }"
+    <button class="w-full mt-2 mb-2 rounded-md p-2 hover:bg-slate-700" :class="{ 'bg-slate-800': isSelected }"
         @click="() => { handleAddRequirement(index) }">
-        Recipe #{{ index + 1 }}:
-        <i v-for="(amount, materialName) in recipeOption.Materials">
+        <i class="text-sm" v-for="(amount, materialName) in recipeOption.Materials">
             <slot name="icons">{{ materialName }} x{{ amount }} | </slot>
         </i>
         at {{ recipeOption.Facility }}
-</button>
+    </button>
 </template>

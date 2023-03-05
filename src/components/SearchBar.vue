@@ -7,7 +7,7 @@ import SearchResultList from "./SearchResultList.vue";
 const props = defineProps<{
     options: string[]
 }>();
-const emit = defineEmits(["onSearchResultClick"])
+const emit = defineEmits(["searchResultClick"])
 
 let text = ref<string>("")
 
@@ -23,18 +23,18 @@ const filteredOptions = computed(() => {
 
 const handleSearchResultClicked = (result: string) => {
     text.value = ""
-    emit('onSearchResultClick', result)
+    emit('searchResultClick', result)
 }
 
 </script>
 
 <template>
-    <div class="m-3">
+    <div class="mb-3">
 
         <input :value="text"
             class="rounded-md text-black placeholder-slate-700 bg-white shadow-lg shadow-green-900 outline-none p-2 w-full"
             type="text" placeholder="Search..." @input="handleUpdate(($event.target as HTMLInputElement).value)" />
-        <SearchResultList class="mt-0 w-full" :results="filteredOptions" @onSearchResultClick="handleSearchResultClicked">
+        <SearchResultList class="mt-0 w-full" :results="filteredOptions" @searchResultClick="handleSearchResultClicked">
         </SearchResultList>
-</div>
+    </div>
 </template>

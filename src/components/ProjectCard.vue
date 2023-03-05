@@ -13,14 +13,12 @@ const props = defineProps<{
         <template #header>
             <slot name="header"></slot>
         </template>
-        <template #message>
-            <slot name="message"></slot>
-        </template>
+        <slot></slot>
         <template #actions>
             <nav>
                 <RouterLink class="p-2 text-white font-bold bg-green-900 rounded-sm" :to="link">Try it out!
                 </RouterLink>
             </nav>
         </template>
-</Card>
+    </Card>
 </template>

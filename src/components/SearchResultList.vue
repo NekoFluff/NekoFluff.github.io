@@ -5,16 +5,16 @@ defineProps<{
     results: string[];
 }>();
 
-defineEmits(['onSearchResultClick'])
+defineEmits(['searchResultClick'])
 
 </script>
 
 
 <template>
-    <div class="absolute z-10" v-show="results.length > 0">
+    <div class="absolute z-10 bg-black" v-show="results.length > 0">
         <ul>
             <SearchResult v-for="result of results" :text="result"
-                @onClick="(text: string) => { $emit('onSearchResultClick', text) }" />
+                @click="(text: string) => { $emit('searchResultClick', text) }" />
         </ul>
 </div>
 </template>
