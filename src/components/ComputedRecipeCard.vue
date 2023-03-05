@@ -33,5 +33,9 @@ defineProps<{
                 {{ key }}: {{ val }}/s
             </li>
         </ul>
+        <div v-if="computedRecipe.UsedFor !== ''">
+            <span class="font-bold">For</span>: {{ computedRecipe.UsedFor }}
+        </div>
+
     </Card>
 </template>
