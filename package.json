@@ -3,7 +3,7 @@
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "dev": "vite --port 3000",
+        "dev": "vite --port $PORT",
         "build": "run-p type-check build-only",
         "preview": "vite preview --host localhost --port $PORT",
         "test:e2e": "start-server-and-test preview :4173 'cypress run --e2e'",
