@@ -12,6 +12,7 @@ export interface ComputedRecipeRequest {
 
 export const useRecipesStore = defineStore("recipes", () => {
     const recipes = ref<Recipe[][]>([])
+    const selectedRecipe = ref<string>("")
     const recipeMap = computed<{ [key: string]: Recipe[] }>(() => {
         const map: { [key: string]: Recipe[] } = {}
         for (const recipeList of recipes.value) {
@@ -24,6 +25,10 @@ export const useRecipesStore = defineStore("recipes", () => {
 
     function setRecipes(r: Recipe[][]) {
         recipes.value = r
+    }
+
+    function setSelectedRecipe(r: string) {
+        selectedRecipe.value = r
     }
 
     function addRequest(req: ComputedRecipeRequest) {
@@ -54,5 +59,5 @@ export const useRecipesStore = defineStore("recipes", () => {
         return recipes;
     }
 
-    return { recipes, recipeMap, getRecipesWithOptions, setRecipes, recipeRequests, groupRecipes, addRequest, removeRequest, addRequestRequirement };
+    return { recipes, selectedRecipe, setSelectedRecipe, recipeMap, getRecipesWithOptions, setRecipes, recipeRequests, groupRecipes, addRequest, removeRequest, addRequestRequirement };
 });

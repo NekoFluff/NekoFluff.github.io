@@ -67,7 +67,8 @@ recipesStore.$subscribe(async () => {
     const recipeRequests = Object.keys(recipesStore.recipeRequests)
     if (!includes(recipeRequests, selectedRecipeRequest.value?.Name)) {
         if (recipeRequests.length > 0) {
-            selectedRecipeRequest.value = recipesStore.recipeRequests[recipeRequests[0]]
+            const recipeRequest = recipesStore.recipeRequests[recipeRequests[0]]
+            selectedRecipeRequest.value = recipeRequest
         } else {
             selectedRecipeRequest.value = undefined
         }

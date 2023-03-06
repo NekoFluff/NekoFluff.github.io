@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { useRecipesStore } from "@/stores/recipes";
+import { computed, ref } from "vue";
 import Card from "./Card.vue";
 import type { ComputedRecipe } from "./ComputedRecipeOutput.vue";
 import Divider from "./Divider.vue";
+
+const recipesStore = useRecipesStore();
 
 const props = defineProps<{
     computedRecipe: ComputedRecipe;
@@ -12,7 +15,8 @@ const scrollToElement = (id: string) => {
     const el = document.getElementById(id);
 
     if (el) {
-        el.scrollIntoView({ behavior: 'smooth' });
+        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
+        recipesStore.setSelectedRecipe(id);
     }
 }
 
@@ -37,10 +41,17 @@ const usedFor = computed(() => {
     return result
 })
 
+const highlighted = ref<boolean>(false);
+
+recipesStore.$subscribe(() => {
+    highlighted.value = (recipesStore.selectedRecipe == props.computedRecipe.OutputItem)
+})
+
+
 </script>
 
 <template>
-    <Card class="p-2 text-xs" :id="computedRecipe.OutputItem">
+    <Card class="p-2 text-xs" :class="{ 'border-yellow-500': highlighted }" :id="computedRecipe.OutputItem">
         <template #header>
             <div>
                 {{ computedRecipe.CraftingPerSec }} {{ computedRecipe.OutputItem }} per sec
