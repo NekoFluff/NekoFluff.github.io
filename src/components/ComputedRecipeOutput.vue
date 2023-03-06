@@ -41,9 +41,9 @@ const depthSeparatedRecipes = computed(() => {
 
         <ComputedRecipeGrid v-if="!depthMode" :computedRecipes="computedRecipes"></ComputedRecipeGrid>
         <div v-if="depthMode">
-            <div v-for="recipes in depthSeparatedRecipes">
+            <div v-for="recipes, index in depthSeparatedRecipes">
                 <ComputedRecipeGrid :computedRecipes="recipes"></ComputedRecipeGrid>
-                <div>
+                <div v-if="index < depthSeparatedRecipes.length - 1">
                     <Divider class="my-6"/>
                     <div class="absolute px-4 -translate-x-1/2 -translate-y-9 bg-black left-1/2  ">
                         <font-awesome-icon icon="fa-solid fa-arrow-up fa-3x" transform="grow-15" />
