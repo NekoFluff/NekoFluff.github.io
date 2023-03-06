@@ -50,6 +50,8 @@ export const useRecipesStore = defineStore("recipes", () => {
             }
         }
 
+        recipes = recipes.sort((recipeList1, recipeList2) => recipeList1[0].OutputItem.localeCompare(recipeList2[0].OutputItem))
+
         return recipes;
     }
 
