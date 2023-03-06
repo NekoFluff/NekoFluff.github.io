@@ -40,11 +40,13 @@ export const useRecipesStore = defineStore("recipes", () => {
     }
 
     function getRecipesWithOptions(computedRecipes: ComputedRecipe[]): Recipe[][] {
+        var seen: { [key: string]: boolean } = {};
         var recipes: Recipe[][] = [];
         for (const computedRecipe of computedRecipes) {
             const recipe = recipeMap.value[computedRecipe.OutputItem];
-            if (recipe.length > 1) {
+            if (recipe.length > 1 && !seen[recipe[0].OutputItem]) {
                 recipes.push(recipe)
+                seen[recipe[0].OutputItem] = true
             }
         }
 
