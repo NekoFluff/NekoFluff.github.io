@@ -25,7 +25,7 @@ const depthSeparatedRecipes = computed(() => {
 
     if (props.depthMode) {
         for (const recipe of props.computedRecipes) {
-            const depth = recipe.Depth - 1
+            const depth = recipe.Depth || 0
             if (result[depth] == undefined) { result[depth] = []}
             result[depth].push(recipe)
         }
