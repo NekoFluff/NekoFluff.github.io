@@ -7,10 +7,18 @@ defineProps<{
     computedRecipe: ComputedRecipe;
 }>();
 
+const scrollToElement = (id: string) =>  {
+  const el = document.getElementById(id);
+
+  if (el) {
+    el.scrollIntoView();
+  }
+}
+
 </script>
 
 <template>
-    <Card class="p-2 text-xs">
+    <Card class="p-2 text-xs" :id="computedRecipe.OutputItem">
         <template #header>
             <div>
                 {{ computedRecipe.CraftingPerSec }} {{ computedRecipe.OutputItem }} per sec
@@ -18,20 +26,20 @@ defineProps<{
         </template>
         <Divider class="my-2"/>
         <div class="mb-2">
-            <span class="font-bold">{{ computedRecipe.NumFacilitiesNeeded >
+            <span class="font-bold">{{ computedRecipe.NumFacilitiesNeeded ==
                 1 ?
-                "Facilities" : "Facility" }}:</span> {{ computedRecipe.NumFacilitiesNeeded }} {{ computedRecipe.Facility
+                "Facility" : "Facilities" }}:</span> {{ computedRecipe.NumFacilitiesNeeded }} {{ computedRecipe.Facility
     }}{{
-    computedRecipe.NumFacilitiesNeeded >
+    computedRecipe.NumFacilitiesNeeded ==
     1 ?
-    "s" : "" }}
+    "" : "s" }}
         </div>
         <div class="font-bold">
             Consumes
         </div>
         <ul class="mb-2">
             <li v-for="(val, key) in computedRecipe.ItemsConsumedPerSec">
-                {{ key }}: {{ val }}/s
+                <button class="hover:bg-gray-800" @click="scrollToElement(key as string)">{{ key }}</button>: {{ val }}/s
             </li>
         </ul>
         <div v-if="computedRecipe.UsedFor !== ''">

@@ -8,7 +8,7 @@ export interface ComputedRecipe {
     OutputItem: string,
     Facility: string,
     NumFacilitiesNeeded: number,
-    ItemsConsumedPerSec: any,
+    ItemsConsumedPerSec: {[key: string]: number},
     SecondsSpentPerCraft: number,
     CraftingPerSec: number,
     UsedFor: string,
