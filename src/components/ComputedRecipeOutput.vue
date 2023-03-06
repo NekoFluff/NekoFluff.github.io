@@ -40,7 +40,7 @@ const depthSeparatedRecipes = computed(() => {
     <div v-if="computedRecipes.length > 0">
 
         <ComputedRecipeGrid v-if="!depthMode" :computedRecipes="computedRecipes"></ComputedRecipeGrid>
-        <div v-if="depthMode">
+        <div v-if="depthMode" class="mb-5">
             <div v-for="recipes, index in depthSeparatedRecipes">
                 <ComputedRecipeGrid :computedRecipes="recipes"></ComputedRecipeGrid>
                 <div v-if="index < depthSeparatedRecipes.length - 1">
@@ -51,7 +51,9 @@ const depthSeparatedRecipes = computed(() => {
                 </div>
             </div>
         </div>
-        <div class="text-lg font-bold">JSON</div>
-        <textarea class="text-black h-96 w-full" readonly>{{ JSON.stringify(computedRecipes, null, 4) }}</textarea>
+        <div class="m-3">
+            <div class="text-lg font-bold">JSON</div>
+            <textarea class="text-black h-96 w-full" readonly>{{ JSON.stringify(computedRecipes, null, 4) }}</textarea>
+        </div>
     </div>
 </template>
