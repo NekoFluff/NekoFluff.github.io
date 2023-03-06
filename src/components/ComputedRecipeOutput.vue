@@ -43,8 +43,12 @@ const depthSeparatedRecipes = computed(() => {
         <div v-if="depthMode">
             <div v-for="recipes in depthSeparatedRecipes">
                 <ComputedRecipeGrid :computedRecipes="recipes"></ComputedRecipeGrid>
-                <Divider class="my-6"/>
-
+                <div>
+                    <Divider class="my-6"/>
+                    <div class="absolute px-4 -translate-x-1/2 -translate-y-9 bg-black left-1/2  ">
+                        <font-awesome-icon icon="fa-solid fa-arrow-up fa-3x" transform="grow-15" />
+                    </div>
+                </div>
             </div>
         </div>
         <div class="text-lg font-bold">JSON</div>
