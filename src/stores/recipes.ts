@@ -20,14 +20,13 @@ export const useRecipesStore = defineStore("recipes", () => {
         return map
     })
     const recipeRequests = ref<{ [key: string]: ComputedRecipeRequest }>({});
-    const groupRecipes = ref(false);
+    const groupRecipes = ref(true);
 
     function setRecipes(r: Recipe[][]) {
         recipes.value = r
     }
 
     function addRequest(req: ComputedRecipeRequest) {
-        console.log('addrequest', req)
         recipeRequests.value[req.Name] = req;
     }
 

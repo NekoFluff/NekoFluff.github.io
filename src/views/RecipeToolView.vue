@@ -24,6 +24,7 @@ export interface Recipe {
 
 const recipesStore = useRecipesStore()
 
+const depthModeEnabled = ref<boolean>(true)
 const selectedRecipeRequest = ref<ComputedRecipeRequest>()
 const computedRecipes = ref<ComputedRecipe[]>([])
 
@@ -82,8 +83,10 @@ recipesStore.$subscribe(async () => {
 
         <SearchBar :options="recipesStore.recipes.map((recipeList) => recipeList[0].OutputItem).sort()"
             @searchResultClick="handleSearchResultClicked" />
-        <Section header="Options:" class=" hover:bg-slate-900" v-if="Object.keys(recipesStore.recipeRequests).length > 0">
-            <div class="text-sm ml-3">Grouped: <input class="ml-1" type="checkbox" v-model="recipesStore.groupRecipes" />
+        <Section header="Options:" class=" hover:bg-slate-900 " v-if="Object.keys(recipesStore.recipeRequests).length > 0">
+            <div class="text-sm ml-4 mb-3">Group Recipes: <input class="ml-1" type="checkbox" v-model="recipesStore.groupRecipes" />
+            </div>
+            <div class="text-sm ml-4 mb-3 ">Sort by Depth: <input class="ml-1" type="checkbox" v-model="depthModeEnabled" />
             </div>
         </Section>
         <div v-if="selectedRecipeRequest != undefined" class="flex justify-between">
@@ -92,7 +95,7 @@ recipesStore.$subscribe(async () => {
                     @recipeRequestClick="handleRecipeRequestClicked" />
             </Section>
             <Section header="Need" class="flex-initial bg-black mx-3">
-                <ComputedRecipeOutput :computedRecipes="computedRecipes" />
+                <ComputedRecipeOutput :depthMode="depthModeEnabled" :computedRecipes="computedRecipes" />
             </Section>
             <Section header="Alternate Recipes" class="flex-initial bg-black max-w-xs">
                 <div v-for="recipeOptions of recipesStore.getRecipesWithOptions(computedRecipes)">

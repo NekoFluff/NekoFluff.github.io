@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Card from "./Card.vue";
 import type { ComputedRecipe } from "./ComputedRecipeOutput.vue";
+import Divider from "./Divider.vue";
 
 defineProps<{
     computedRecipe: ComputedRecipe;
@@ -15,7 +16,7 @@ defineProps<{
                 {{ computedRecipe.CraftingPerSec }} {{ computedRecipe.OutputItem }} per sec
             </div>
         </template>
-        <hr class="w-full h-0.5 mx-auto my-2 border-0 rounded bg-green-500">
+        <Divider class="my-2"/>
         <div class="mb-2">
             <span class="font-bold">{{ computedRecipe.NumFacilitiesNeeded >
                 1 ?
