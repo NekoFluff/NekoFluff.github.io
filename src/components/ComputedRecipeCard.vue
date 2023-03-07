@@ -23,8 +23,8 @@ const scrollToElement = (id: string) => {
 const usedFor = computed(() => {
     const result: { [key: string]: string } = {}
 
-    if (props.computedRecipe.UsedFor.includes('Uses')) {
-        const parentRecipes = props.computedRecipe.UsedFor.split('|').map((parentRecipe) => parentRecipe.trim())
+    if (props.computedRecipe.usedFor.includes('Uses')) {
+        const parentRecipes = props.computedRecipe.usedFor.split('|').map((parentRecipe) => parentRecipe.trim())
 
         const re = /(.*)\s+(\(Uses.*\))/;
         for (const parentRecipe of parentRecipes) {
@@ -35,7 +35,7 @@ const usedFor = computed(() => {
         }
         return result
     } else {
-        result[props.computedRecipe.UsedFor] = ""
+        result[props.computedRecipe.usedFor] = ""
     }
 
     return result
@@ -44,26 +44,26 @@ const usedFor = computed(() => {
 const highlighted = ref<boolean>(false);
 
 recipesStore.$subscribe(() => {
-    highlighted.value = (recipesStore.selectedRecipe == props.computedRecipe.OutputItem)
+    highlighted.value = (recipesStore.selectedRecipe == props.computedRecipe.outputItem)
 })
 
 
 </script>
 
 <template>
-    <Card class="p-2 text-xs" :class="{ 'border-yellow-500': highlighted }" :id="computedRecipe.OutputItem">
+    <Card class="p-2 text-xs" :class="{ 'border-yellow-500': highlighted }" :id="computedRecipe.outputItem">
         <template #header>
             <div>
-                {{ computedRecipe.CraftingPerSec }} {{ computedRecipe.OutputItem }} per sec
+                {{ computedRecipe.craftingPerSec }} {{ computedRecipe.outputItem }} per sec
             </div>
         </template>
         <Divider class="my-2" />
         <div class="mb-2">
-            <span class="font-bold">{{ computedRecipe.NumFacilitiesNeeded ==
+            <span class="font-bold">{{ computedRecipe.numFacilitiesNeeded ==
                 1 ?
-                "Facility" : "Facilities" }}:</span> {{ computedRecipe.NumFacilitiesNeeded }} {{ computedRecipe.Facility
+                "Facility" : "Facilities" }}:</span> {{ computedRecipe.numFacilitiesNeeded }} {{ computedRecipe.facility
     }}{{
-    computedRecipe.NumFacilitiesNeeded ==
+    computedRecipe.numFacilitiesNeeded ==
     1 ?
     "" : "s" }}
         </div>
@@ -71,11 +71,11 @@ recipesStore.$subscribe(() => {
             Consumes:
         </div>
         <ul class="mb-2">
-            <li v-for="(val, key) in computedRecipe.ItemsConsumedPerSec">
+            <li v-for="(val, key) in computedRecipe.itemsConsumedPerSec">
                 <button class="hover:bg-gray-800" @click="scrollToElement(key as string)">{{ key }}</button>: {{ val }}/s
             </li>
         </ul>
-        <div class="font-bold" v-if="computedRecipe.UsedFor !== ''">
+        <div class="font-bold" v-if="computedRecipe.usedFor !== ''">
             For:
         </div>
         <ul class="mb-2">

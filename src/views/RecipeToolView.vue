@@ -15,11 +15,11 @@ import { includes } from "lodash";
 export interface MaterialMap { [key: string]: number }
 
 export interface Recipe {
-    OutputItem: string,
-    OutputItemCount: number,
-    Facility: string,
-    Time: number,
-    Materials: MaterialMap
+    outputItem: string,
+    outputItemCount: number,
+    facility: string,
+    time: number,
+    materials: MaterialMap
 }
 
 const recipesStore = useRecipesStore()
@@ -43,21 +43,21 @@ axios.get<Recipe[][]>('https://alex-api.herokuapp.com/dsp/recipes')
 
 const handleSearchResultClicked = (recipeName: string) => {
     recipesStore.addRequest({
-        Name: recipeName,
-        Rate: 1,
-        RecipeOptions: recipesStore.recipeMap[recipeName],
-        Requirements: {}
+        name: recipeName,
+        rate: 1,
+        recipeOptions: recipesStore.recipeMap[recipeName],
+        requirements: {}
     })
 }
 
 const fetchData = async () => {
     if (selectedRecipeRequest.value == undefined) return;
-    if (selectedRecipeRequest.value.Rate <= 0) return;
+    if (selectedRecipeRequest.value.rate <= 0) return;
 
     const reqBody = [selectedRecipeRequest.value]
 
     const data = JSON.stringify(reqBody)
-    var url = 'https://alex-api.herokuapp.com/dsp/computedRecipe'
+    var url = 'https://alex-api.herokuapp.com/dsp/computedRecipes'
 
     const resp = await axios.post<ComputedRecipe[]>(url, data, { params: { group: recipesStore.groupRecipes ? 1 : 0 } })
     computedRecipes.value = resp.data
@@ -65,7 +65,7 @@ const fetchData = async () => {
 
 recipesStore.$subscribe(async () => {
     const recipeRequests = Object.keys(recipesStore.recipeRequests)
-    if (!includes(recipeRequests, selectedRecipeRequest.value?.Name)) {
+    if (!includes(recipeRequests, selectedRecipeRequest.value?.name)) {
         if (recipeRequests.length > 0) {
             const recipeRequest = recipesStore.recipeRequests[recipeRequests[0]]
             selectedRecipeRequest.value = recipeRequest
@@ -82,7 +82,7 @@ recipesStore.$subscribe(async () => {
 <template>
     <div class="flex flex-col">
 
-        <SearchBar :options="recipesStore.recipes.map((recipeList) => recipeList[0].OutputItem).sort()"
+        <SearchBar :options="recipesStore.recipes.map((recipeList) => recipeList[0].outputItem).sort()"
             @searchResultClick="handleSearchResultClicked" />
         <Section header="Options:" class=" hover:bg-slate-900 " v-if="Object.keys(recipesStore.recipeRequests).length > 0">
             <div class="text-sm ml-4 mb-3">Group Recipes: <input class="ml-1" type="checkbox" v-model="recipesStore.groupRecipes" />

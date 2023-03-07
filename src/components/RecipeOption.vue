@@ -11,12 +11,12 @@ const props = defineProps<{
 }>();
 
 const handleAddRequirement = (index: number) => {
-    recipesStore.addRequestRequirement(props.recipeRequest, props.recipeOption.OutputItem, index)
+    recipesStore.addRequestRequirement(props.recipeRequest, props.recipeOption.outputItem, index)
 }
 
 const calculateIsSelected = () => {
-    const requirements = props.recipeRequest.Requirements
-    const selectedIdx = requirements[props.recipeOption.OutputItem]
+    const requirements = props.recipeRequest.requirements
+    const selectedIdx = requirements[props.recipeOption.outputItem]
     return selectedIdx === props.index || selectedIdx === undefined && props.index == 0
 }
 
@@ -31,9 +31,9 @@ recipesStore.$subscribe(() => {
 <template>
     <button class="w-full mt-2 mb-2 rounded-md p-2 hover:bg-slate-700" :class="{ 'bg-slate-800': isSelected }"
         @click="() => { handleAddRequirement(index) }">
-        <i class="text-sm" v-for="(amount, materialName) in recipeOption.Materials">
+        <i class="text-sm" v-for="(amount, materialName) in recipeOption.materials">
             <slot name="icons">{{ materialName }} x{{ amount }} | </slot>
         </i>
-        at {{ recipeOption.Facility }}
+        at {{ recipeOption.facility }}
     </button>
 </template>

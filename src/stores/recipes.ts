@@ -4,10 +4,10 @@ import type { Recipe } from "@/views/RecipeToolView.vue";
 import type { ComputedRecipe } from "@/components/ComputedRecipeOutput.vue";
 
 export interface ComputedRecipeRequest {
-    Name: string,
-    Rate: number
-    RecipeOptions: Recipe[]
-    Requirements: { [key: string]: number }
+    name: string,
+    rate: number
+    recipeOptions: Recipe[]
+    requirements: { [key: string]: number }
 }
 
 export const useRecipesStore = defineStore("recipes", () => {
@@ -16,7 +16,7 @@ export const useRecipesStore = defineStore("recipes", () => {
     const recipeMap = computed<{ [key: string]: Recipe[] }>(() => {
         const map: { [key: string]: Recipe[] } = {}
         for (const recipeList of recipes.value) {
-            map[recipeList[0].OutputItem] = recipeList
+            map[recipeList[0].outputItem] = recipeList
         }
         return map
     })
@@ -32,29 +32,29 @@ export const useRecipesStore = defineStore("recipes", () => {
     }
 
     function addRequest(req: ComputedRecipeRequest) {
-        recipeRequests.value[req.Name] = req;
+        recipeRequests.value[req.name] = req;
     }
 
     function removeRequest(req: ComputedRecipeRequest) {
-        delete recipeRequests.value[req.Name];
+        delete recipeRequests.value[req.name];
     }
 
     function addRequestRequirement(req: ComputedRecipeRequest, reqRecipeName: string, recipeIdx: number) {
-        recipeRequests.value[req.Name].Requirements[reqRecipeName] = recipeIdx
+        recipeRequests.value[req.name].requirements[reqRecipeName] = recipeIdx
     }
 
     function getRecipesWithOptions(computedRecipes: ComputedRecipe[]): Recipe[][] {
         var seen: { [key: string]: boolean } = {};
         var recipes: Recipe[][] = [];
         for (const computedRecipe of computedRecipes) {
-            const recipe = recipeMap.value[computedRecipe.OutputItem];
-            if (recipe.length > 1 && !seen[recipe[0].OutputItem]) {
+            const recipe = recipeMap.value[computedRecipe.outputItem];
+            if (recipe.length > 1 && !seen[recipe[0].outputItem]) {
                 recipes.push(recipe)
-                seen[recipe[0].OutputItem] = true
+                seen[recipe[0].outputItem] = true
             }
         }
 
-        recipes = recipes.sort((recipeList1, recipeList2) => recipeList1[0].OutputItem.localeCompare(recipeList2[0].OutputItem))
+        recipes = recipes.sort((recipeList1, recipeList2) => recipeList1[0].outputItem.localeCompare(recipeList2[0].outputItem))
 
         return recipes;
     }

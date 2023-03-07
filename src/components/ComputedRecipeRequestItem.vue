@@ -10,7 +10,7 @@ const props = defineProps<{
 
 defineEmits(["click"])
 
-const rate = ref(props.recipeRequest.Rate);
+const rate = ref(props.recipeRequest.rate);
 
 const handleDelete = () => {
     recipesStore.removeRequest(props.recipeRequest)
@@ -18,7 +18,7 @@ const handleDelete = () => {
 
 const handleInput = debounce((value: string) => {
     rate.value = Number(value)
-    props.recipeRequest.Rate = Number(value)
+    props.recipeRequest.rate = Number(value)
     recipesStore.addRequest(props.recipeRequest)
 }, 500)
 
@@ -28,7 +28,7 @@ const handleInput = debounce((value: string) => {
     <li class="rounded-md bg-black text-green-500 p-3 hover:bg-slate-700">
         <button class="flex flex-row w-full " @click="$emit('click', recipeRequest)">
             <div class="flex-1 text-left mr-3">
-                {{ recipeRequest.Name }}
+                {{ recipeRequest.name }}
             </div>
 
             <input class="text-black flex-initial w-10 rounded-md text-right px-0.5 outline-none" type="number" step="0.01"

@@ -17,7 +17,7 @@ const props = defineProps<{
                 <slot name="icon"></slot>
             </i>
             <div class="flex-1 font-bold">
-                {{ options[0].OutputItem }}
+                {{ options[0].outputItem }}
             </div>
         </template>
 

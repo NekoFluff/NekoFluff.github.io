@@ -5,14 +5,14 @@ import Divider from './Divider.vue';
 
 
 export interface ComputedRecipe {
-    OutputItem: string,
-    Facility: string,
-    NumFacilitiesNeeded: number,
-    ItemsConsumedPerSec: {[key: string]: number},
-    SecondsSpentPerCraft: number,
-    CraftingPerSec: number,
-    UsedFor: string,
-    Depth: number,
+    outputItem: string,
+    facility: string,
+    numFacilitiesNeeded: number,
+    itemsConsumedPerSec: { [key: string]: number },
+    secondsSpentPerCraft: number,
+    craftingPerSec: number,
+    usedFor: string,
+    depth: number,
 }
 
 const props = defineProps<{
@@ -25,8 +25,8 @@ const depthSeparatedRecipes = computed(() => {
 
     if (props.depthMode) {
         for (const recipe of props.computedRecipes) {
-            const depth = recipe.Depth || 0
-            if (result[depth] == undefined) { result[depth] = []}
+            const depth = recipe.depth || 0
+            if (result[depth] == undefined) { result[depth] = [] }
             result[depth].push(recipe)
         }
     }
@@ -44,7 +44,7 @@ const depthSeparatedRecipes = computed(() => {
             <div v-for="recipes, index in depthSeparatedRecipes">
                 <ComputedRecipeGrid :computedRecipes="recipes"></ComputedRecipeGrid>
                 <div v-if="index < depthSeparatedRecipes.length - 1">
-                    <Divider class="my-6"/>
+                    <Divider class="my-6" />
                     <div class="absolute px-4 -translate-x-1/2 -translate-y-9 bg-black left-1/2  ">
                         <font-awesome-icon icon="fa-solid fa-arrow-up fa-3x" transform="grow-15" />
                     </div>
