@@ -12,15 +12,6 @@ const props = defineProps<{
     computedRecipe: ComputedRecipe;
 }>();
 
-const scrollToElement = (id: string) => {
-    const el = document.getElementById(id);
-
-    if (el) {
-        el.scrollIntoView({ block: 'center', behavior: 'smooth' });
-        recipesStore.setSelectedRecipe(id);
-    }
-}
-
 const usedFor = computed(() => {
     const result: { [key: string]: string } = {}
 
