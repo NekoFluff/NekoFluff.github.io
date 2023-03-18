@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRecipesStore, type ComputedRecipeRequest } from "@/stores/recipes.js"
 import type { Recipe } from "@/views/RecipeToolView.vue";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 
 const recipesStore = useRecipesStore()
 const props = defineProps<{
@@ -22,9 +22,10 @@ const calculateIsSelected = () => {
 
 let isSelected = ref<boolean>(calculateIsSelected())
 
-recipesStore.$subscribe(() => {
-    isSelected.value = calculateIsSelected()
-})
+watch(
+    () =>  props.recipeRequest.requirements[props.recipeOption.outputItem],
+    () => { isSelected.value = calculateIsSelected() }
+)
 
 </script>
 

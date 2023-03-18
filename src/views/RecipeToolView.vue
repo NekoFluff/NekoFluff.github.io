@@ -27,6 +27,7 @@ const recipesStore = useRecipesStore()
 const depthModeEnabled = ref<boolean>(true)
 const selectedRecipeRequest = ref<ComputedRecipeRequest>()
 const computedRecipes = ref<ComputedRecipe[]>([])
+const recipeOptionsList = ref<Recipe[][]>([])
 
 const handleRecipeRequestClicked = (recipeRequest: ComputedRecipeRequest) => {
     selectedRecipeRequest.value = recipeRequest
@@ -61,6 +62,7 @@ const fetchData = async () => {
 
     const resp = await axios.post<ComputedRecipe[]>(url, data, { params: { group: recipesStore.groupRecipes ? 1 : 0 } })
     computedRecipes.value = resp.data
+    recipeOptionsList.value = recipesStore.getRecipesWithOptions(resp.data)
 }
 
 recipesStore.$subscribe(async () => {
@@ -99,7 +101,7 @@ recipesStore.$subscribe(async () => {
                 <ComputedRecipeOutput :depthMode="depthModeEnabled" :computedRecipes="computedRecipes" />
             </Section>
             <Section header="Alternate Recipes" class="flex-initial bg-black max-w-xs">
-                <div v-for="recipeOptions of recipesStore.getRecipesWithOptions(computedRecipes)">
+                <div v-for="recipeOptions of recipeOptionsList">
                     <RecipeOptionsCard :recipeRequest="selectedRecipeRequest" :options="recipeOptions" />
                 </div>
             </Section>
