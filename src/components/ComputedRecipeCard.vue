@@ -4,6 +4,7 @@ import { computed, ref } from "vue";
 import Card from "./Card.vue";
 import type { ComputedRecipe } from "./ComputedRecipeOutput.vue";
 import Divider from "./Divider.vue";
+import ScrollLink from "./ScrollLink.vue";
 
 const recipesStore = useRecipesStore();
 
@@ -72,7 +73,7 @@ recipesStore.$subscribe(() => {
         </div>
         <ul class="mb-2">
             <li v-for="(val, key) in computedRecipe.itemsConsumedPerSec">
-                <button class="hover:bg-gray-800" @click="scrollToElement(key as string)">{{ key }}</button>: {{ val }}/s
+                <ScrollLink :targetId="(key as string)" :text="(key as string)" :callback="() => { recipesStore.setSelectedRecipe(key as string); }">: {{ val }}/s</ScrollLink>
             </li>
         </ul>
         <div class="font-bold" v-if="computedRecipe.usedFor !== ''">
@@ -80,8 +81,7 @@ recipesStore.$subscribe(() => {
         </div>
         <ul class="mb-2">
             <li v-for="(usesStr, parentRecipeName) in usedFor">
-                <button class="hover:bg-gray-800" @click="scrollToElement(parentRecipeName as string)">{{ parentRecipeName
-                }}</button> {{ usesStr }}
+                <ScrollLink :targetId="(parentRecipeName as string)" :text="(parentRecipeName as string)" :callback="() => { recipesStore.setSelectedRecipe(parentRecipeName as string); }"> {{ " " + usesStr }}</ScrollLink>
             </li>
         </ul>
     </Card>
