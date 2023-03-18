@@ -18,10 +18,8 @@ const scrollToElement = () => {
 </script>
 
 <template>
-    <li>
-        <button class="hover:bg-gray-800" @click="scrollToElement()">
-            {{ props.text }}
-        </button>
-        <slot></slot>
-    </li>
+    <button class="hover:bg-gray-800" @click="scrollToElement()">
+        {{ props.text }}
+    </button>
+    <slot></slot>
 </template>
