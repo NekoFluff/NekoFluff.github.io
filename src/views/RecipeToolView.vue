@@ -86,7 +86,7 @@ recipesStore.$subscribe(async () => {
 
         <SearchBar :options="recipesStore.recipes.map((recipeList) => recipeList[0].outputItem).sort()"
             @searchResultClick="handleSearchResultClicked" />
-        <Section header="Options:" class=" hover:bg-slate-900 " v-if="Object.keys(recipesStore.recipeRequests).length > 0">
+        <Section header="Options:" class="bg-black" v-if="Object.keys(recipesStore.recipeRequests).length > 0">
             <div class="text-sm ml-4 mb-3">Group Recipes: <input class="ml-1" type="checkbox" v-model="recipesStore.groupRecipes" />
             </div>
             <div class="text-sm ml-4 mb-3 ">Sort by Depth: <input class="ml-1" type="checkbox" v-model="depthModeEnabled" />
