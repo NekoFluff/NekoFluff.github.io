@@ -32,9 +32,11 @@ watch(
 <template>
     <button class="w-full mt-2 mb-2 rounded-md p-2 hover:bg-slate-700" :class="{ 'bg-slate-800': isSelected }"
         @click="() => { handleAddRequirement(index) }">
-        <i class="text-sm" v-for="(amount, materialName) in recipeOption.materials">
-            <slot name="icons">{{ materialName }} x{{ amount }} | </slot>
-        </i>
+        <slot name="icons">
+            <i class="text-sm" v-for="(amount, materialName) in recipeOption.materials">
+                {{ materialName }} x{{ amount }} |
+            </i>
+        </slot>
         at {{ recipeOption.facility }}
     </button>
 </template>

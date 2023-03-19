@@ -19,7 +19,8 @@ export interface Recipe {
     outputItemCount: number,
     facility: string,
     time: number,
-    materials: MaterialMap
+    materials: MaterialMap,
+    image: string,
 }
 
 const recipesStore = useRecipesStore()
@@ -84,7 +85,12 @@ recipesStore.$subscribe(async () => {
 <template>
     <div class="flex flex-col">
 
-        <SearchBar :options="recipesStore.recipes.map((recipeList) => recipeList[0].outputItem).sort()"
+        <SearchBar :options="recipesStore.recipes.map((recipeList) => {
+            return {
+                text: recipeList[0].outputItem,
+                image: recipeList[0].image
+            }
+        }).sort()"
             @searchResultClick="handleSearchResultClicked" />
         <Section header="Options:" class="bg-black" v-if="Object.keys(recipesStore.recipeRequests).length > 0">
             <div class="text-sm ml-4 mb-3">Group Recipes: <input class="ml-1" type="checkbox" v-model="recipesStore.groupRecipes" />

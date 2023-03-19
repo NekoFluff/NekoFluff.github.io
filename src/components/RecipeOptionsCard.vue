@@ -17,11 +17,12 @@ const props = defineProps<{
 <template>
     <Card>
         <template #header>
-            <i>
-                <slot name="icon"></slot>
-            </i>
+
             <div class="flex-1 font-bold">
-                <ScrollLink :targetId="(options[0].outputItem)" :text="(options[0].outputItem)" :callback="() => { recipesStore.setSelectedRecipe(options[0].outputItem); }"></ScrollLink>
+                <ScrollLink :targetId="(options[0].outputItem)" :callback="() => { recipesStore.setSelectedRecipe(options[0].outputItem); }">
+                    <img v-if="recipesStore.recipeMap[options[0].outputItem]  && recipesStore.recipeMap[options[0].outputItem][0]" class="inline h-5 w-5" :src="recipesStore.recipeMap[options[0].outputItem][0].image" :alt="options[0].outputItem"/>
+                    {{ options[0].outputItem }}
+                </ScrollLink>
             </div>
         </template>
 

@@ -13,6 +13,7 @@ export interface ComputedRecipe {
     craftingPerSec: number,
     usedFor: string,
     depth: number,
+    image: string,
 }
 
 const props = defineProps<{

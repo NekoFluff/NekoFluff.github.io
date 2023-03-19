@@ -2,7 +2,6 @@
 
 const props = defineProps<{
     targetId: string;
-    text: string;
     callback: () => void;
 }>();
 
@@ -18,8 +17,7 @@ const scrollToElement = () => {
 </script>
 
 <template>
-    <button class="hover:bg-gray-800" @click="scrollToElement()">
-        {{ props.text }}
+    <button class="text-left hover:bg-gray-800" @click="scrollToElement()">
+        <slot></slot>
     </button>
-    <slot></slot>
 </template>

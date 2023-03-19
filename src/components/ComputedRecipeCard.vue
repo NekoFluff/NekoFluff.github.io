@@ -46,25 +46,29 @@ recipesStore.$subscribe(() => {
     <Card class="p-2 text-xs" :class="{ 'border-yellow-500': highlighted }" :id="computedRecipe.outputItem">
         <template #header>
             <div>
-                {{ computedRecipe.craftingPerSec }} {{ computedRecipe.outputItem }} per sec
+                <img v-if="computedRecipe.image" class="inline h-5 w-5" :src="computedRecipe.image" :alt="computedRecipe.outputItem"/> {{ computedRecipe.craftingPerSec }} {{ computedRecipe.outputItem }} per sec
             </div>
         </template>
         <Divider class="my-2" />
         <div class="mb-2">
             <span class="font-bold">{{ computedRecipe.numFacilitiesNeeded ==
                 1 ?
-                "Facility" : "Facilities" }}:</span> {{ computedRecipe.numFacilitiesNeeded }} {{ computedRecipe.facility
-    }}{{
-    computedRecipe.numFacilitiesNeeded ==
-    1 ?
-    "" : "s" }}
+                "Facility" : "Facilities" }}:
+            </span>
+            <img v-if="recipesStore.recipeMap[computedRecipe.facility] && recipesStore.recipeMap[computedRecipe.facility][0]" class="inline h-5 w-5" :src="recipesStore.recipeMap[computedRecipe.facility][0].image" :alt="computedRecipe.outputItem"/>
+            {{ computedRecipe.numFacilitiesNeeded }} {{ computedRecipe.facility}} {{computedRecipe.numFacilitiesNeeded == 1 ?"" : "s" }}
         </div>
         <div class="font-bold">
             Consumes:
         </div>
         <ul class="mb-2">
             <li v-for="(val, key) in computedRecipe.itemsConsumedPerSec">
-                <ScrollLink :targetId="(key as string)" :text="(key as string)" :callback="() => { recipesStore.setSelectedRecipe(key as string); }">: {{ val }}/s</ScrollLink>
+
+
+                <ScrollLink :targetId="(key as string)" :callback="() => { recipesStore.setSelectedRecipe(key as string); }">
+                    <img v-if="recipesStore.recipeMap[key] && recipesStore.recipeMap[key][0]" class="inline h-5 w-5" :src="recipesStore.recipeMap[key][0].image" :alt="computedRecipe.outputItem"/>
+                    {{ key }}: {{ val }}/s
+                </ScrollLink>
             </li>
         </ul>
         <div class="font-bold" v-if="computedRecipe.usedFor !== ''">
@@ -72,7 +76,10 @@ recipesStore.$subscribe(() => {
         </div>
         <ul class="mb-2">
             <li v-for="(usesStr, parentRecipeName) in usedFor">
-                <ScrollLink :targetId="(parentRecipeName as string)" :text="(parentRecipeName as string)" :callback="() => { recipesStore.setSelectedRecipe(parentRecipeName as string); }"> {{ " " + usesStr }}</ScrollLink>
+                <ScrollLink :targetId="(parentRecipeName as string)" :callback="() => { recipesStore.setSelectedRecipe(parentRecipeName as string); }">
+                    <img v-if="recipesStore.recipeMap[parentRecipeName]  && recipesStore.recipeMap[parentRecipeName][0]" class="inline h-5 w-5" :src="recipesStore.recipeMap[parentRecipeName][0].image" :alt="computedRecipe.outputItem"/>
+                    {{ parentRecipeName }} {{ usesStr }}
+                </ScrollLink>
             </li>
         </ul>
     </Card>

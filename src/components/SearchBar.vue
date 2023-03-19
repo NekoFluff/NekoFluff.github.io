@@ -4,8 +4,13 @@ import { computed, ref } from "vue"
 import SearchResultList from "./SearchResultList.vue";
 
 
+export type Option = {
+    text: string;
+    image: string;
+};
+
 const props = defineProps<{
-    options: string[]
+    options: Option[]
 }>();
 const emit = defineEmits(["searchResultClick"])
 
@@ -18,7 +23,7 @@ const handleUpdate = debounce((updatedText: string) => {
 const filteredOptions = computed(() => {
     if (text.value === "") { return [] }
 
-    return props.options.filter((option) => { return option.toLowerCase().includes(text.value.toLocaleLowerCase()) })
+    return props.options.filter((option) => { return option.text.toLowerCase().includes(text.value.toLocaleLowerCase()) })
 })
 
 const handleSearchResultClicked = (result: string) => {
