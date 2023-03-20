@@ -16,14 +16,23 @@ const handleAddRequirement = (index: number) => {
 
 const calculateIsSelected = () => {
     const requirements = props.recipeRequest.requirements
-    const selectedIdx = requirements[props.recipeOption.outputItem]
-    return selectedIdx === props.index || selectedIdx === undefined && props.index == 0
+    if (requirements) {
+        const selectedIdx = requirements[props.recipeOption.outputItem]
+        return selectedIdx === props.index || selectedIdx === undefined && props.index == 0
+    }
+    return false
 }
 
 let isSelected = ref<boolean>(calculateIsSelected())
 
 watch(
-    () =>  props.recipeRequest.requirements[props.recipeOption.outputItem],
+    () => {
+        if (props.recipeRequest.requirements) {
+            return props.recipeRequest.requirements![props.recipeOption.outputItem]
+        } else {
+            return false
+        }
+    },
     () => { isSelected.value = calculateIsSelected() }
 )
 
