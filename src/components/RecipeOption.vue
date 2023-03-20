@@ -28,7 +28,7 @@ let isSelected = ref<boolean>(calculateIsSelected())
 watch(
     () => {
         if (props.recipeRequest.requirements) {
-            return props.recipeRequest.requirements![props.recipeOption.outputItem]
+            return props.recipeRequest.requirements[props.recipeOption.outputItem]
         } else {
             return false
         }

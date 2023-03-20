@@ -45,7 +45,7 @@ const fetchData = async () => {
     if (selectedRecipeRequest.value.rate <= 0) return;
 
     const reqBody = [selectedRecipeRequest.value]
-    const resp = await api.getDSPComputedRecipe(undefined, reqBody, { method: "POST" })
+    const resp = await api.getDSPComputedRecipe(recipesStore.groupRecipes, reqBody)
 
     computedRecipes.value = resp.data
     recipeOptionsList.value = recipesStore.getRecipesWithOptions(resp.data)

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRecipesStore } from "@/stores/recipes";
 import type { ComputedRecipe } from "alex-api-typescript-client/api";
-import { computed, ref } from "vue";
+import { computed, ref, onBeforeUpdate } from "vue";
 import Card from "./Card.vue";
 import Divider from "./Divider.vue";
 import ScrollLink from "./ScrollLink.vue";
@@ -35,10 +35,9 @@ const usedFor = computed(() => {
 
 const highlighted = ref<boolean>(false);
 
-recipesStore.$subscribe(() => {
+onBeforeUpdate(() => {
     highlighted.value = (recipesStore.selectedRecipe == props.computedRecipe.outputItem)
 })
-
 
 </script>
 
