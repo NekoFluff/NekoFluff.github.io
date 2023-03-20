@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import RecipeOptions from "./RecipeOptions.vue";
-import type { Recipe } from "@/views/RecipeToolView.vue";
-import type { ComputedRecipeRequest } from "@/stores/recipes.js";
 import Card from "./Card.vue";
 import { useRecipesStore } from "@/stores/recipes";
 import ScrollLink from "./ScrollLink.vue";
+import type { ComputedRecipeRequest, Recipe } from "alex-api-typescript-client/api";
 
 const recipesStore = useRecipesStore();
 

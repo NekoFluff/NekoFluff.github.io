@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
-import { useRecipesStore, type ComputedRecipeRequest } from "@/stores/recipes.js"
+import { useRecipesStore } from "@/stores/recipes.js"
+import type { ComputedRecipeRequest } from "alex-api-typescript-client/api";
 import ComputedRecipeRequestItem from "./ComputedRecipeRequestItem.vue";
 
 const { recipeRequests } = useRecipesStore();
