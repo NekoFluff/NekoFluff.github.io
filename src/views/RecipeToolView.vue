@@ -3,25 +3,13 @@
 import ComputedRecipeRequestList from "@/components/ComputedRecipeRequestItemList.vue";
 import SearchBar from "@/components/SearchBar.vue"
 
-import axios from 'axios';
-
-import { useRecipesStore, type ComputedRecipeRequest } from "@/stores/recipes";
-import ComputedRecipeOutput, { type ComputedRecipe } from "@/components/ComputedRecipeOutput.vue";
+import { useRecipesStore } from "@/stores/recipes";
+import ComputedRecipeOutput from "@/components/ComputedRecipeOutput.vue";
 import { ref } from "vue";
 import RecipeOptionsCard from "@/components/RecipeOptionsCard.vue";
 import Section from "@/components/Section.vue";
 import { includes } from "lodash";
-
-export interface MaterialMap { [key: string]: number }
-
-export interface Recipe {
-    outputItem: string,
-    outputItemCount: number,
-    facility: string,
-    time: number,
-    materials: MaterialMap,
-    image: string,
-}
+import { type Recipe, type ComputedRecipe, type ComputedRecipeRequest, DysonSphereProgramApi } from "alex-api-typescript-client/api";
 
 const recipesStore = useRecipesStore()
 
@@ -35,7 +23,8 @@ const handleRecipeRequestClicked = (recipeRequest: ComputedRecipeRequest) => {
     fetchData()
 }
 
-axios.get<Recipe[][]>('https://alex-api.herokuapp.com/dsp/recipes')
+const api = new DysonSphereProgramApi()
+api.getDSPRecipes()
     .then((resp) => {
         recipesStore.setRecipes(resp.data)
     })
@@ -47,7 +36,6 @@ const handleSearchResultClicked = (recipeName: string) => {
     recipesStore.addRequest({
         name: recipeName,
         rate: 1,
-        recipeOptions: recipesStore.recipeMap[recipeName],
         requirements: {}
     })
 }
@@ -57,11 +45,8 @@ const fetchData = async () => {
     if (selectedRecipeRequest.value.rate <= 0) return;
 
     const reqBody = [selectedRecipeRequest.value]
+    const resp = await api.getDSPComputedRecipe(undefined, reqBody, { method: "POST" })
 
-    const data = JSON.stringify(reqBody)
-    var url = 'https://alex-api.herokuapp.com/dsp/computedRecipes'
-
-    const resp = await axios.post<ComputedRecipe[]>(url, data, { params: { group: recipesStore.groupRecipes ? 1 : 0 } })
     computedRecipes.value = resp.data
     recipeOptionsList.value = recipesStore.getRecipesWithOptions(resp.data)
 }

@@ -1,14 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import type { Recipe } from "@/views/RecipeToolView.vue";
-import type { ComputedRecipe } from "@/components/ComputedRecipeOutput.vue";
-
-export interface ComputedRecipeRequest {
-    name: string,
-    rate: number
-    recipeOptions: Recipe[]
-    requirements: { [key: string]: number }
-}
+import type { Recipe, ComputedRecipe, ComputedRecipeRequest } from "alex-api-typescript-client/api";
 
 export const useRecipesStore = defineStore("recipes", () => {
     const recipes = ref<Recipe[][]>([])
@@ -40,7 +32,11 @@ export const useRecipesStore = defineStore("recipes", () => {
     }
 
     function addRequestRequirement(req: ComputedRecipeRequest, reqRecipeName: string, recipeIdx: number) {
-        recipeRequests.value[req.name].requirements[reqRecipeName] = recipeIdx
+        const request = recipeRequests.value[req.name]
+        if (request) {
+            request.requirements = request.requirements || {}
+            request.requirements[reqRecipeName] = recipeIdx
+        }
     }
 
     function getRecipesWithOptions(computedRecipes: ComputedRecipe[]): Recipe[][] {

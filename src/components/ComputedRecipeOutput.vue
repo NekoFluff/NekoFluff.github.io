@@ -2,19 +2,7 @@
 import { computed } from 'vue';
 import ComputedRecipeGrid from './ComputedRecipeGrid.vue';
 import Divider from './Divider.vue';
-
-
-export interface ComputedRecipe {
-    outputItem: string,
-    facility: string,
-    numFacilitiesNeeded: number,
-    itemsConsumedPerSec: { [key: string]: number },
-    secondsSpentPerCraft: number,
-    craftingPerSec: number,
-    usedFor: string,
-    depth: number,
-    image: string,
-}
+import type { ComputedRecipe } from "alex-api-typescript-client/api";
 
 const props = defineProps<{
     computedRecipes: ComputedRecipe[]

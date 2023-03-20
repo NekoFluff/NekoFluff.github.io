@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useRecipesStore } from "@/stores/recipes";
+import type { ComputedRecipe } from "alex-api-typescript-client/api";
 import { computed, ref } from "vue";
 import Card from "./Card.vue";
-import type { ComputedRecipe } from "./ComputedRecipeOutput.vue";
 import Divider from "./Divider.vue";
 import ScrollLink from "./ScrollLink.vue";
 
@@ -46,7 +46,7 @@ recipesStore.$subscribe(() => {
     <Card class="p-2 text-xs" :class="{ 'border-yellow-500': highlighted }" :id="computedRecipe.outputItem">
         <template #header>
             <div>
-                <img v-if="computedRecipe.image" class="inline h-5 w-5" :src="computedRecipe.image" :alt="computedRecipe.outputItem"/> {{ computedRecipe.craftingPerSec }} {{ computedRecipe.outputItem }} per sec
+                <img v-if="computedRecipe.image" class="inline h-5 w-5" :src="computedRecipe.image" :alt="computedRecipe.outputItem"/> {{ computedRecipe.craftingPerSecond }} {{ computedRecipe.outputItem }} per sec
             </div>
         </template>
         <Divider class="my-2" />
@@ -56,7 +56,7 @@ recipesStore.$subscribe(() => {
                 "Facility" : "Facilities" }}:
             </span>
             <img v-if="recipesStore.recipeMap[computedRecipe.facility] && recipesStore.recipeMap[computedRecipe.facility][0]" class="inline h-5 w-5" :src="recipesStore.recipeMap[computedRecipe.facility][0].image" :alt="computedRecipe.outputItem"/>
-            {{ computedRecipe.numFacilitiesNeeded }} {{ computedRecipe.facility}} {{computedRecipe.numFacilitiesNeeded == 1 ?"" : "s" }}
+            {{ computedRecipe.numFacilitiesNeeded }} {{ computedRecipe.facility}}{{computedRecipe.numFacilitiesNeeded == 1 ?"" : "s" }}
         </div>
         <div class="font-bold">
             Consumes:

@@ -6,7 +6,7 @@ import SearchResultList from "./SearchResultList.vue";
 
 export type Option = {
     text: string;
-    image: string;
+    image: string | undefined;
 };
 
 const props = defineProps<{
