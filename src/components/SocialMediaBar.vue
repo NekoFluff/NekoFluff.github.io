@@ -11,6 +11,9 @@
             <a href="https://www.linkedin.com/in/alex-nou-271323138/" target="_blank" rel="noopener noreferrer">
                 <font-awesome-icon icon="fa-brands fa-linkedin fa-lg" transform="grow-15" />
             </a>
+            <a href="https://github.com/NekoFluff" target="_blank" rel="noopener noreferrer">
+                <font-awesome-icon icon="fa-brands fa-github fa-lg" transform="grow-15" />
+            </a>
         </nav>
     </div>
 </template>
