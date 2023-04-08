@@ -1,5 +1,8 @@
 # alexnou-vue
 
+# ignore revisions
+git config blame.ignoreRevsFile .git-blame-ignore-revs
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
