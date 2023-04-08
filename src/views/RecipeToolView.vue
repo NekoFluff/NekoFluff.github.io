@@ -75,23 +75,23 @@ recipesStore.$subscribe(async () => {
                 text: recipeList[0].outputItem,
                 image: recipeList[0].image
             }
-        }).sort()"
-            @searchResultClick="handleSearchResultClicked" />
+        }).sort()" @searchResultClick="handleSearchResultClicked" />
         <Section header="Options:" class="bg-black" v-if="Object.keys(recipesStore.recipeRequests).length > 0">
-            <div class="text-sm ml-4 mb-3">Group Recipes: <input class="ml-1" type="checkbox" v-model="recipesStore.groupRecipes" />
+            <div class="mb-3 ml-4 text-sm">Group Recipes: <input class="ml-1" type="checkbox"
+                    v-model="recipesStore.groupRecipes" />
             </div>
-            <div class="text-sm ml-4 mb-3 ">Sort by Depth: <input class="ml-1" type="checkbox" v-model="depthModeEnabled" />
+            <div class="mb-3 ml-4 text-sm ">Sort by Depth: <input class="ml-1" type="checkbox" v-model="depthModeEnabled" />
             </div>
         </Section>
         <div v-if="selectedRecipeRequest != undefined" class="flex justify-between">
-            <Section header="Want" class="flex-initial bg-black max-w-xs">
+            <Section header="Want" class="flex-initial max-w-xs bg-black">
                 <ComputedRecipeRequestList :selectedRecipeRequest="selectedRecipeRequest"
                     @recipeRequestClick="handleRecipeRequestClicked" />
             </Section>
-            <Section header="Need" class="flex-initial bg-black mx-3">
+            <Section header="Need" class="flex-initial mx-3 bg-black">
                 <ComputedRecipeOutput :depthMode="depthModeEnabled" :computedRecipes="computedRecipes" />
             </Section>
-            <Section header="Alternate Recipes" class="flex-initial bg-black max-w-xs">
+            <Section header="Alternate Recipes" class="flex-initial max-w-xs bg-black">
                 <div v-for="recipeOptions of recipeOptionsList">
                     <RecipeOptionsCard :recipeRequest="selectedRecipeRequest" :options="recipeOptions" />
                 </div>

@@ -5,7 +5,7 @@ import ProjectCard from '@/components/ProjectCard.vue';
 </script>
 
 <template>
-    <div class="grid md:grid-cols-3 gap-4 xs:grid-cols-1">
+    <div class="grid gap-4 md:grid-cols-3 xs:grid-cols-1">
 
         <ProjectCard link="/projects/recipes" icon="project">
             <template #header>DSP Calculator</template>

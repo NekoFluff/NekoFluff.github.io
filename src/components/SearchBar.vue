@@ -37,9 +37,9 @@ const handleSearchResultClicked = (result: string) => {
     <div class="mb-3">
 
         <input :value="text"
-            class="rounded-md text-black placeholder-slate-700 bg-white shadow-lg shadow-green-900 outline-none p-2 w-full"
+            class="w-full p-2 text-black bg-white rounded-md shadow-lg outline-none placeholder-slate-700 shadow-green-900"
             type="text" placeholder="Search..." @input="handleUpdate(($event.target as HTMLInputElement).value)" />
-        <SearchResultList class="mt-0 w-full" :results="filteredOptions" @searchResultClick="handleSearchResultClicked">
+        <SearchResultList class="w-full mt-0" :results="filteredOptions" @searchResultClick="handleSearchResultClicked">
         </SearchResultList>
     </div>
 </template>

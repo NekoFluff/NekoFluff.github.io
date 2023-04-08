@@ -26,12 +26,12 @@ const handleInput = debounce((value: string) => {
 </script>
 
 <template>
-    <li class="rounded-md bg-black text-green-500 p-3 hover:bg-zinc-800">
-        <button class="flex flex-row w-full items-center" @click="$emit('click', recipeRequest)">
+    <li class="p-3 text-green-500 bg-black rounded-md hover:bg-zinc-800">
+        <button class="flex flex-row items-center w-full" @click="$emit('click', recipeRequest)">
 
-            <img v-if="recipesStore.recipeMap[props.recipeRequest.name][0].image" class="inline h-6 w-6"
+            <img v-if="recipesStore.recipeMap[props.recipeRequest.name][0].image" class="inline w-6 h-6"
                 :src="recipesStore.recipeMap[props.recipeRequest.name][0].image" :alt="props.recipeRequest.name" />
-            <div class="flex-1 text-left mr-3 ml-2">
+            <div class="flex-1 ml-2 mr-3 text-left">
                 {{ recipeRequest.name }}
             </div>
 

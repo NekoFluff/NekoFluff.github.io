@@ -4,13 +4,13 @@ import Card from './Card.vue';
 </script>
 
 <template>
-    <div class="text-3xl flex justify-center font-extralight text-green-500 my-64">
+    <div class="flex justify-center my-64 text-3xl text-green-500 font-extralight">
         <span class="font-bold">Hello</span>, my name is
         <div class="font-bold">&nbspAlex</div>.
     </div>
     <Card>
         <template #header>
-            <h1 class="font-bold text-2xl">
+            <h1 class="text-2xl font-bold">
                 Who am I?
             </h1>
         </template>
@@ -24,7 +24,7 @@ import Card from './Card.vue';
     </Card>
     <Card>
         <template #header>
-            <h1 class="font-bold text-2xl">
+            <h1 class="text-2xl font-bold">
                 Programming Languages
             </h1>
         </template>
@@ -34,7 +34,7 @@ import Card from './Card.vue';
             <li>- php</li>
             <li>- javascript/typescript</li>
         </ul>
-        <div class="text-lg font-bold mt-4">Rusty/Some experience</div>
+        <div class="mt-4 text-lg font-bold">Rusty/Some experience</div>
         <ul>
             <li>- swift & objective-c</li>
             <li>- python</li>
@@ -46,7 +46,7 @@ import Card from './Card.vue';
     </Card>
     <Card>
         <template #header>
-            <h1 class="font-bold text-2xl">
+            <h1 class="text-2xl font-bold">
                 Other relevant technologies/tools
             </h1>
         </template>
@@ -61,7 +61,7 @@ import Card from './Card.vue';
     </Card>
     <Card>
         <template #header>
-            <h1 class="font-bold text-2xl">
+            <h1 class="text-2xl font-bold">
                 Interests
             </h1>
         </template>
@@ -74,7 +74,7 @@ import Card from './Card.vue';
     </Card>
     <Card>
         <template #header>
-            <h1 class="font-bold text-2xl">
+            <h1 class="text-2xl font-bold">
                 Website Under Maintenance
             </h1>
         </template>
