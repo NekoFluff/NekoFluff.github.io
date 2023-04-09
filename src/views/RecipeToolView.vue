@@ -10,6 +10,7 @@ import RecipeOptionsCard from "@/components/RecipeOptionsCard.vue";
 import Section from "@/components/Section.vue";
 import { includes } from "lodash";
 import { type Recipe, type ComputedRecipe, type ComputedRecipeRequest, DysonSphereProgramApi } from "alex-api-typescript-client/api";
+import PageViewTracker from "@/components/PageViewTracker.vue";
 
 const recipesStore = useRecipesStore()
 
@@ -97,7 +98,6 @@ recipesStore.$subscribe(async () => {
                 </div>
             </Section>
         </div>
-
-
     </div>
+    <PageViewTracker />
 </template>

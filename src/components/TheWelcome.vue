@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Card from './Card.vue';
+import PageViewTracker from './PageViewTracker.vue';
 
 </script>
 
@@ -8,6 +9,8 @@ import Card from './Card.vue';
         <span class="font-bold">Hello</span>, my name is
         <div class="font-bold">&nbspAlex</div>.
     </div>
+    <PageViewTracker />
+
     <Card>
         <template #header>
             <h1 class="text-2xl font-bold">

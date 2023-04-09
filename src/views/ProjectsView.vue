@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import PageViewTracker from '@/components/PageViewTracker.vue';
 import ProjectCard from '@/components/ProjectCard.vue';
-
 
 </script>
 
@@ -18,4 +18,5 @@ import ProjectCard from '@/components/ProjectCard.vue';
                 The images are usually fan art of a popular Hololive VTuber Ninomae Ina'nis. </p>
         </ProjectCard>
     </div>
+    <PageViewTracker />
 </template>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// import PageViewTracker from '@/components/PageViewTracker.vue';
 import TheWelcome from '@/components/TheWelcome.vue';
 
 
@@ -7,5 +8,6 @@ import TheWelcome from '@/components/TheWelcome.vue';
 <template>
     <main>
         <TheWelcome />
+        <!-- <PageViewTracker /> -->
     </main>
 </template>
