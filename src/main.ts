@@ -3,6 +3,7 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
+import { createAuth0 } from '@auth0/auth0-vue';
 
 import "./assets/main.css";
 
@@ -28,5 +29,13 @@ const app = createApp(App);
 app.component("font-awesome-icon", FontAwesomeIcon);
 app.use(createPinia());
 app.use(router);
+app.use(createAuth0({
+    domain: 'dev-75kn0e8bkkrpjrsp.us.auth0.com',
+    clientId: 'qWweE9keu2ORLPHzkddqYMju4Uh4m2Vn',
+    authorizationParams: {
+        redirect_uri: window.location.origin
+    },
+}));
+
 
 app.mount("#app");
