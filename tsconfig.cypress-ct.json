@@ -1,14 +1,18 @@
 {
-  "extends": "./tsconfig.app.json",
-  "include": [
-    "env.d.ts",
-    "src/**/*",
-    "src/**/*.vue",
-    "cypress/support/component.*",
-    "cypress/support/commands.ts"
-  ],
-  "exclude": [],
-  "compilerOptions": {
-    "composite": true
-  }
+    "extends": "./tsconfig.app.json",
+    "include": [
+        "env.d.ts",
+        "src/**/*",
+        "src/**/*.vue",
+        "cypress/support/component.*",
+        "cypress/support/commands.ts"
+    ],
+    "exclude": [],
+    "compilerOptions": {
+        "lib": [
+            "ES2021",
+            "dom"
+        ],
+        "composite": true
+    }
 }

@@ -7,9 +7,9 @@
         "playwright.config.*"
     ],
     "compilerOptions": {
-        "target": "ES2018",
+        "target": "ES5",
         "lib": [
-            "ES2018",
+            "ES2021",
             "dom"
         ],
         "composite": true,
