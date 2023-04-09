@@ -29,4 +29,5 @@ const props = defineProps<{
         </template>
 
         <RecipeOptions :recipeRequest="props.recipeRequest" :options="options" />
-    </Card></template>
+    </Card>
+</template>

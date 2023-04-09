@@ -22,8 +22,7 @@ defineProps<{
                         v-if="recipesStore.recipeMap[material] && recipesStore.recipeMap[material][0] && recipesStore.recipeMap[material][0].image">
                         <img class="inline w-8 h-8" :src="recipesStore.recipeMap[material][0].image"
                             :alt="options[0].outputItem" />
-                        <p class="absolute bottom-0 font-extrabold  left-8">{{ amount }}</p>
-
+                        <p class="absolute bottom-0 font-extrabold left-8">{{ amount }}</p>
                     </div>
                     <p v-else>{{ material }} x{{ amount }} |</p>
                 </div>

@@ -84,11 +84,12 @@ onBeforeUpdate(() => {
             <li v-for="(usesStr, parentRecipeName) in usedFor">
                 <ScrollLink :targetId="(parentRecipeName as string)"
                     :callback="() => { recipesStore.setSelectedRecipe(parentRecipeName as string); }">
-                    <img v-if="recipesStore.recipeMap[parentRecipeName]  && recipesStore.recipeMap[parentRecipeName][0]"
-                    class="inline w-5 h-5" :src="recipesStore.recipeMap[parentRecipeName][0].image"
-                    :alt="computedRecipe.outputItem" />
-                {{ parentRecipeName }} {{ usesStr }}
-            </ScrollLink>
-        </li>
-    </ul>
-</Card></template>
+                    <img v-if="recipesStore.recipeMap[parentRecipeName] && recipesStore.recipeMap[parentRecipeName][0]"
+                        class="inline w-5 h-5" :src="recipesStore.recipeMap[parentRecipeName][0].image"
+                        :alt="computedRecipe.outputItem" />
+                    {{ parentRecipeName }} {{ usesStr }}
+                </ScrollLink>
+            </li>
+        </ul>
+    </Card>
+</template>
