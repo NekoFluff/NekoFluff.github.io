@@ -13,7 +13,7 @@ defineEmits(['searchResultClick'])
 
 <template>
     <div class="absolute z-10 bg-black" v-show="results.length > 0">
-        <ul>
+        <ul data-cy="searchResults">
             <SearchResult v-for="result of results" :text="result.text"
                 @click="(text: string) => { $emit('searchResultClick', text) }">
                 <template #icon>
