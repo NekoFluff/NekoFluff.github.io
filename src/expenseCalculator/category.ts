@@ -64,7 +64,6 @@ export const defaultCategories: Category[] = [
             "junn all you can eat",
             "snooze an am",
             "chili's",
-            "pho",
             "snooze eatery",
             "denny",
             "tea swirld",
@@ -78,7 +77,11 @@ export const defaultCategories: Category[] = [
             "jersey mikes",
             "chopshop",
             "deli",
-            "starbucks"
+            "starbucks",
+            "just just subs",
+            "samurai sam",
+            "betty's pizza",
+            "the lunch lounge"
         ]
     },
     {
