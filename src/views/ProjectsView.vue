@@ -9,13 +9,17 @@ import ProjectCard from '@/components/ProjectCard.vue';
 
         <ProjectCard link="/projects/recipes" icon="project">
             <template #header>DSP Calculator</template>
-            <p>A Dyson Sphere Program miniproject. This is a tool that helps identify the necessary resources
+            <p>A Dyson Sphere Program miniproject. A tool that helps identify the necessary resources
                 and building required in order to product some item.</p>
         </ProjectCard>
         <ProjectCard link="https://www.wahtako.com" externalLink icon="project">
             <template #header>WAH Tako</template>
             <p>A miniproject to display images from twitter with the #inArt or #いなート tag.
                 The images are usually fan art of a popular Hololive VTuber Ninomae Ina'nis. </p>
+        </ProjectCard>
+        <ProjectCard link="/projects/expense-calculator" icon="project">
+            <template #header>Expense Calculator</template>
+            <p>Track and view your expenses.</p>
         </ProjectCard>
     </div>
     <PageViewTracker />

@@ -23,9 +23,11 @@
         "@fortawesome/vue-fontawesome": "^3.0.3",
         "alex-api-typescript-client": "github:NekoFluff/alex-api-typescript-client",
         "axios": "^1.3.2",
+        "chart.js": "^4.2.1",
         "lodash": "^4.17.21",
         "pinia": "^2.0.28",
         "vue": "^3.2.45",
+        "vue-chartjs": "^5.2.0",
         "vue-router": "^4.1.6"
     },
     "devDependencies": {
