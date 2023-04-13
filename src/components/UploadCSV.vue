@@ -3,7 +3,7 @@
 
 // emit
 const emit = defineEmits<{
-    'add-file': File
+    (e: 'add-file', file: File): void
 }>()
 
 const onFileChange = (e: Event) => {
