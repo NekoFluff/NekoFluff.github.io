@@ -11,8 +11,11 @@ import { ref } from 'vue';
 const totalEarned = ref(0)
 const totalSpent = ref(0)
 const transactions = ref([] as Transaction[])
+const filteredTransactions = ref([] as Transaction[])
 const currentSortBy = ref("date" as keyof Transaction)
 const currentSortDirection = ref("asc" as SortDirection)
+const startDate = ref(new Date())
+const endDate = ref(new Date())
 
 const files = ref([] as File[])
 
@@ -73,9 +76,31 @@ const handleFilesChange = () => {
 }
 
 const handleTransactionsChange = () => {
+    // get all transaction dates in an array
+    const dates = transactions.value.map(t => t.date);
+
+    // sort dates from oldest to newest
+    dates.sort((a, b) => a.getTime() - b.getTime());
+
+    // get oldest and newest date
+    startDate.value = dates[0];
+    endDate.value = dates[dates.length - 1];
+
+    handleDateChange()
+}
+
+const handleDateChange = () => {
+    filterTransactions()
+}
+
+const filterTransactions = () => {
+    filteredTransactions.value = transactions.value.filter(t => {
+        return t.date.getTime() >= startDate.value.getTime() && t.date.getTime() <= endDate.value.getTime()
+    })
+
     // sum all positive transactions into number, all negative tranasctions into a number, and the sum of all transactions
-    const positiveTransactions = transactions.value.filter(t => t.amount > 0);
-    const negativeTransactions = transactions.value.filter(t => t.amount < 0);
+    const positiveTransactions = filteredTransactions.value.filter(t => t.amount > 0);
+    const negativeTransactions = filteredTransactions.value.filter(t => t.amount < 0);
 
     // sum all transaction amounts
     totalEarned.value = positiveTransactions.reduce((acc, t) => acc + t.amount, 0);
@@ -94,7 +119,7 @@ const sortBy = (key: keyof Transaction) => {
         currentSortDirection.value = 'asc'
     }
 
-    transactions.value.sort((a, b) => {
+    filteredTransactions.value.sort((a, b) => {
         if (a[key] < b[key]) {
             return currentSortDirection.value === 'asc' ? -1 : 1
         }
@@ -104,7 +129,6 @@ const sortBy = (key: keyof Transaction) => {
         return 0
     })
 }
-
 
 </script>
 
@@ -126,14 +150,21 @@ const sortBy = (key: keyof Transaction) => {
             </div>
         </div>
 
+        <!-- Slider -->
+        <h2>Start Date</h2>
+        <VueDatePicker v-model="startDate" @update:model-value="handleDateChange" />
+
+        <h2>End Date</h2>
+        <VueDatePicker v-model="endDate" @update:model-value="handleDateChange" />
+
         <!-- Create a summary -->
         <div class="card">
             <h2>Summary</h2>
 
             <p>Number of files: {{ files.length }}</p>
-            <p>Number of transactions: {{ transactions.length }}</p>
-            <p>Number of positive transactions: {{ transactions.filter(t => t.amount > 0).length }}</p>
-            <p>Number of negative transactions: {{ transactions.filter(t => t.amount < 0).length }}</p>
+            <p>Number of transactions: {{ filteredTransactions.length }}</p>
+            <p>Number of positive transactions: {{ filteredTransactions.filter(t => t.amount > 0).length }}</p>
+            <p>Number of negative transactions: {{ filteredTransactions.filter(t => t.amount < 0).length }}</p>
                     <p>Total earned: {{ totalEarned.toFixed(2) }}</p>
                     <p>Total spent: {{ totalSpent.toFixed(2) }}</p>
                     <p>Net: {{ (totalEarned + totalSpent).toFixed(2) }}</p>
@@ -142,7 +173,7 @@ const sortBy = (key: keyof Transaction) => {
         <!-- Create a bar chart -->
         <div class="mb-10 max-h-96">
             <h2>Bar Chart</h2>
-            <ExpensesBar :transactions="transactions"></ExpensesBar>
+            <ExpensesBar :transactions="filteredTransactions"></ExpensesBar>
         </div>
 
         <!-- Create a table -->
@@ -158,7 +189,7 @@ const sortBy = (key: keyof Transaction) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="transaction in transactions"
+                    <tr v-for="transaction in filteredTransactions"
                         :key="transaction.date + transaction.id + transaction.description">
                         <td>{{ transaction.date.toLocaleDateString() }}</td>
                         <td>{{ transaction.description }}</td>
