@@ -4,6 +4,7 @@ export type SortDirection = 'asc' | 'desc'
 import FileButton from '@/components/FileButton.vue';
 import PageViewTracker from '@/components/PageViewTracker.vue';
 import Section from '@/components/Section.vue';
+import Button from '@/components/Button.vue';
 import UploadCSV from '@/components/UploadCSV.vue';
 import ExpensesBar from '@/components/charts/ExpensesBar.vue';
 import type { Transaction } from '@/expenseCalculator/transaction';
@@ -175,6 +176,7 @@ const sortBy = (key: keyof Transaction) => {
             <div class="mb-10 max-h-96">
                 <ExpensesBar :transactions="filteredTransactions"></ExpensesBar>
             </div>
+            <Button class="text-gray-300 bg-gray-500 disabled hover:bg-gray-500">Edit Categories</Button>
         </Section>
 
 

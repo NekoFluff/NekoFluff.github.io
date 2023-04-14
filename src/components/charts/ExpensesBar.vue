@@ -11,9 +11,6 @@ const props = defineProps<{
     transactions: Transaction[]
 }>()
 
-// watch transactions
-
-
 const categories = defaultCategories.filter(t => t.name !== 'Credit Card');
 const categoryNames = categories.map(c => c.name)
 const data = ref({} as ChartData<"bar">)
@@ -22,7 +19,7 @@ watchEffect(() => {
     const categorizedTransactions = categories.map(c => props.transactions.filter(t => t.category === c.name))
 
     data.value = {
-        labels: categoryNames,
+        labels: categoryNames.filter((_, i) => categorizedTransactions[i].length > 0),
         datasets: [
             {
                 label: 'Income',
