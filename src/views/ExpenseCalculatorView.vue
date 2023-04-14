@@ -2,6 +2,8 @@
 export type SortDirection = 'asc' | 'desc'
 
 import FileButton from '@/components/FileButton.vue';
+import PageViewTracker from '@/components/PageViewTracker.vue';
+import Section from '@/components/Section.vue';
 import UploadCSV from '@/components/UploadCSV.vue';
 import ExpensesBar from '@/components/charts/ExpensesBar.vue';
 import type { Transaction } from '@/expenseCalculator/transaction';
@@ -134,33 +136,31 @@ const sortBy = (key: keyof Transaction) => {
 
 <template>
     <main>
-        <h1>Expense Calculator</h1>
-        <p>Calculate and analyze your expenses on a daily, monthy, or yearly basis.</p>
-        <div class="card">
-            <h2>Upload CSV</h2>
-            <p>Upload a CSV file containing your expense & income data.</p>
-            <UploadCSV @add-file="handleAddFile" />
-        </div>
+        <h1 class="mb-5 text-3xl text-green-500">Expense Calculator</h1>
+
+        <Section header="Upload a CSV">
+            <UploadCSV class="mt-7" @add-file="handleAddFile" />
+        </Section>
 
         <!-- Create a file button for every file -->
-        <div class="card">
-            <h2>Files</h2>
+        <Section header="Files" class="bg-black">
             <div v-for="file in files" :key="file.name">
                 <FileButton :file="file" @remove="removeFile"></FileButton>
             </div>
-        </div>
+        </Section>
 
         <!-- Slider -->
-        <h2>Start Date</h2>
-        <VueDatePicker v-model="startDate" @update:model-value="handleDateChange" />
+        <Section header="Date Range">
+            <h2>Start Date</h2>
+            <VueDatePicker class="mb-3" v-model="startDate" @update:model-value="handleDateChange" />
 
-        <h2>End Date</h2>
-        <VueDatePicker v-model="endDate" @update:model-value="handleDateChange" />
+            <h2>End Date</h2>
+            <VueDatePicker v-model="endDate" @update:model-value="handleDateChange" />
+
+        </Section>
 
         <!-- Create a summary -->
-        <div class="card">
-            <h2>Summary</h2>
-
+        <Section header="Summary">
             <p>Number of files: {{ files.length }}</p>
             <p>Number of transactions: {{ filteredTransactions.length }}</p>
             <p>Number of positive transactions: {{ filteredTransactions.filter(t => t.amount > 0).length }}</p>
@@ -168,18 +168,19 @@ const sortBy = (key: keyof Transaction) => {
                     <p>Total earned: {{ totalEarned.toFixed(2) }}</p>
                     <p>Total spent: {{ totalSpent.toFixed(2) }}</p>
                     <p>Net: {{ (totalEarned + totalSpent).toFixed(2) }}</p>
-        </div>
+        </Section>
 
         <!-- Create a bar chart -->
-        <div class="mb-10 max-h-96">
-            <h2>Bar Chart</h2>
-            <ExpensesBar :transactions="filteredTransactions"></ExpensesBar>
-        </div>
+        <Section header="Bar Chart">
+            <div class="mb-10 max-h-96">
+                <ExpensesBar :transactions="filteredTransactions"></ExpensesBar>
+            </div>
+        </Section>
+
 
         <!-- Create a table -->
-        <div>
-            <h2>Transactions</h2>
-            <table>
+        <Section header="Transactions">
+            <table v-if="filterTransactions.length > 0">
                 <thead>
                     <tr>
                         <th @click="sortBy('date')">Date</th>
@@ -198,8 +199,9 @@ const sortBy = (key: keyof Transaction) => {
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </Section>
 
+        <PageViewTracker />
 
     </main>
 </template>

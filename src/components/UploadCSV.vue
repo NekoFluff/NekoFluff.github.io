@@ -25,7 +25,8 @@ const onFileChange = (e: Event) => {
 </script>
 
 <template>
-    <form enctype="multipart/form-data">
-        <input type="file" @change="onFileChange">
+    <form enctype="multipart/form-data" class="mb-2">
+        <label class="p-2 font-bold text-white bg-green-900 rounded-md hover:bg-green-800 " for="files">Select file</label>
+        <input id="files" type="file" @change="onFileChange" class="hidden">
     </form>
 </template>

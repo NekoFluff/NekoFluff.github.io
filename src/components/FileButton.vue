@@ -15,8 +15,10 @@ defineEmits<{
 </script>
 
 <template>
-    <div class="flex flex-row">
+    <div class="flex flex-row p-2 text-green-500 bg-black rounded-md ">
         <button @click="$emit('click', file)">{{ file.name }}</button>
-        <button @click="$emit('remove', file)">Remove</button>
+        <button class="flex-initial ml-2 text-center rounded-md" @click="$emit('remove', file)">
+            <font-awesome-icon icon=" fa-solid fa-trash" />
+        </button>
     </div>
 </template>

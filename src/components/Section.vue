@@ -11,6 +11,9 @@ defineProps<{
         <h2 data-cy="section-header" class="mx-2 mb-3 ml-1 text-lg">
             {{ header }}
         </h2>
-        <slot></slot>
+
+        <div class="mx-2">
+            <slot></slot>
+        </div>
     </div>
 </template>
