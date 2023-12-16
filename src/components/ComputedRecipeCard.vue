@@ -46,7 +46,7 @@ onBeforeUpdate(() => {
         <template #header>
             <div>
                 <img v-if="computedRecipe.image" class="inline w-5 h-5" :src="computedRecipe.image"
-                    :alt="computedRecipe.name" /> {{ computedRecipe.craftingPerSecond }} {{ computedRecipe.name
+                    :alt="computedRecipe.name" /> {{ computedRecipe.craftingPerSec }} {{ computedRecipe.name
                     }} per sec
             </div>
         </template>
