@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 import type {
   Recipe,
   ComputedRecipe,
-  ComputedRecipeRequest,
+  GetDSPComputedRecipeRequestInner,
 } from "alex-api-typescript-client/api";
 
 export const useRecipesStore = defineStore("recipes", () => {
@@ -12,11 +12,11 @@ export const useRecipesStore = defineStore("recipes", () => {
   const recipeMap = computed<{ [key: string]: Recipe[] }>(() => {
     const map: { [key: string]: Recipe[] } = {};
     for (const recipeList of recipes.value) {
-      map[recipeList[0].outputItem] = recipeList;
+      map[recipeList[0].name] = recipeList;
     }
     return map;
   });
-  const recipeRequests = ref<{ [key: string]: ComputedRecipeRequest }>({});
+  const recipeRequests = ref<{ [key: string]: GetDSPComputedRecipeRequestInner }>({});
   const groupRecipes = ref(true);
 
   function setRecipes(r: Recipe[][]) {
@@ -27,16 +27,16 @@ export const useRecipesStore = defineStore("recipes", () => {
     selectedRecipe.value = r;
   }
 
-  function addRequest(req: ComputedRecipeRequest) {
+  function addRequest(req: GetDSPComputedRecipeRequestInner) {
     recipeRequests.value[req.name] = req;
   }
 
-  function removeRequest(req: ComputedRecipeRequest) {
+  function removeRequest(req: GetDSPComputedRecipeRequestInner) {
     delete recipeRequests.value[req.name];
   }
 
   function addRequestRequirement(
-    req: ComputedRecipeRequest,
+    req: GetDSPComputedRecipeRequestInner,
     reqRecipeName: string,
     recipeIdx: number
   ) {
@@ -53,15 +53,15 @@ export const useRecipesStore = defineStore("recipes", () => {
     var seen: { [key: string]: boolean } = {};
     var recipes: Recipe[][] = [];
     for (const computedRecipe of computedRecipes) {
-      const recipe = recipeMap.value[computedRecipe.outputItem];
-      if (recipe.length > 1 && !seen[recipe[0].outputItem]) {
+      const recipe = recipeMap.value[computedRecipe.name];
+      if (recipe.length > 1 && !seen[recipe[0].name]) {
         recipes.push(recipe);
-        seen[recipe[0].outputItem] = true;
+        seen[recipe[0].name] = true;
       }
     }
 
     recipes = recipes.sort((recipeList1, recipeList2) =>
-      recipeList1[0].outputItem.localeCompare(recipeList2[0].outputItem)
+      recipeList1[0].name.localeCompare(recipeList2[0].name)
     );
 
     return recipes;

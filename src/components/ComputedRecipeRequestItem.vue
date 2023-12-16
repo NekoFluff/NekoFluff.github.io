@@ -2,11 +2,11 @@
 import { useRecipesStore } from "@/stores/recipes.js"
 import { ref } from "vue"
 import { debounce } from "lodash";
-import type { ComputedRecipeRequest } from "alex-api-typescript-client/api";
+import type { GetDSPComputedRecipeRequestInner } from "alex-api-typescript-client/api";
 
 const recipesStore = useRecipesStore()
 const props = defineProps<{
-    recipeRequest: ComputedRecipeRequest;
+    recipeRequest: GetDSPComputedRecipeRequestInner;
 }>();
 
 defineEmits(["click"])

@@ -2,12 +2,12 @@
 import RecipeOption from "./RecipeOption.vue";
 
 import { useRecipesStore } from "@/stores/recipes.js";
-import type { ComputedRecipeRequest, Recipe } from "alex-api-typescript-client/api";
+import type { GetDSPComputedRecipeRequestInner, Recipe } from "alex-api-typescript-client/api";
 
 const recipesStore = useRecipesStore();
 
 defineProps<{
-    recipeRequest: ComputedRecipeRequest
+    recipeRequest: GetDSPComputedRecipeRequestInner
     options: Recipe[]
 }>();
 
@@ -17,11 +17,11 @@ defineProps<{
     <RecipeOption v-for="(recipe, index) in options" :recipeRequest="recipeRequest" :recipeOption="recipe" :index="index">
         <template #icons>
             <div class="flex">
-                <div class="ml-2 mr-2" v-for="(amount, material) in recipe.materials">
+                <div class="ml-2 mr-2" v-for="(amount, material) in recipe.ingredients">
                     <div
                         v-if="recipesStore.recipeMap[material] && recipesStore.recipeMap[material][0] && recipesStore.recipeMap[material][0].image">
                         <img class="inline w-8 h-8" :src="recipesStore.recipeMap[material][0].image"
-                            :alt="options[0].outputItem" />
+                            :alt="options[0].name" />
                         <p class="absolute bottom-0 font-extrabold left-8">{{ amount }}</p>
                     </div>
                     <p v-else>{{ material }} x{{ amount }} |</p>

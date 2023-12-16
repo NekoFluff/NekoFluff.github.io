@@ -3,12 +3,12 @@ import RecipeOptions from "./RecipeOptions.vue";
 import Card from "./Card.vue";
 import { useRecipesStore } from "@/stores/recipes";
 import ScrollLink from "./ScrollLink.vue";
-import type { ComputedRecipeRequest, Recipe } from "alex-api-typescript-client/api";
+import type { GetDSPComputedRecipeRequestInner, Recipe } from "alex-api-typescript-client/api";
 
 const recipesStore = useRecipesStore();
 
 const props = defineProps<{
-    recipeRequest: ComputedRecipeRequest;
+    recipeRequest: GetDSPComputedRecipeRequestInner;
     options: Recipe[];
 }>();
 </script>
@@ -18,12 +18,12 @@ const props = defineProps<{
         <template #header>
 
             <div class="flex-1 font-bold">
-                <ScrollLink :targetId="(options[0].outputItem)"
-                    :callback="() => { recipesStore.setSelectedRecipe(options[0].outputItem); }">
-                    <img v-if="recipesStore.recipeMap[options[0].outputItem] && recipesStore.recipeMap[options[0].outputItem][0]"
-                        class="inline w-5 h-5" :src="recipesStore.recipeMap[options[0].outputItem][0].image"
-                        :alt="options[0].outputItem" />
-                    {{ options[0].outputItem }}
+                <ScrollLink :targetId="(options[0].name)"
+                    :callback="() => { recipesStore.setSelectedRecipe(options[0].name); }">
+                    <img v-if="recipesStore.recipeMap[options[0].name] && recipesStore.recipeMap[options[0].name][0]"
+                        class="inline w-5 h-5" :src="recipesStore.recipeMap[options[0].name][0].image"
+                        :alt="options[0].name" />
+                    {{ options[0].name }}
                 </ScrollLink>
             </div>
         </template>

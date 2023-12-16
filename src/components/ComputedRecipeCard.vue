@@ -15,7 +15,7 @@ const props = defineProps<{
 const usedFor = computed(() => {
     const result: { [key: string]: string } = {}
 
-    if (props.computedRecipe.usedFor.includes('Uses')) {
+    if (props.computedRecipe.usedFor?.includes('Uses')) {
         const parentRecipes = props.computedRecipe.usedFor.split('|').map((parentRecipe) => parentRecipe.trim())
 
         const re = /(.*)\s+(\(Uses.*\))/;
@@ -27,7 +27,7 @@ const usedFor = computed(() => {
         }
         return result
     } else {
-        result[props.computedRecipe.usedFor] = ""
+        result[props.computedRecipe.usedFor ?? ""] = ""
     }
 
     return result
@@ -36,29 +36,29 @@ const usedFor = computed(() => {
 const highlighted = ref<boolean>(false);
 
 onBeforeUpdate(() => {
-    highlighted.value = (recipesStore.selectedRecipe == props.computedRecipe.outputItem)
+    highlighted.value = (recipesStore.selectedRecipe == props.computedRecipe.name)
 })
 
 </script>
 
 <template>
-    <Card class="p-2 text-xs" :class="{ 'border-yellow-500': highlighted }" :id="computedRecipe.outputItem">
+    <Card class="p-2 text-xs" :class="{ 'border-yellow-500': highlighted }" :id="computedRecipe.name">
         <template #header>
             <div>
                 <img v-if="computedRecipe.image" class="inline w-5 h-5" :src="computedRecipe.image"
-                    :alt="computedRecipe.outputItem" /> {{ computedRecipe.craftingPerSecond }} {{ computedRecipe.outputItem
+                    :alt="computedRecipe.name" /> {{ computedRecipe.craftingPerSecond }} {{ computedRecipe.name
                     }} per sec
             </div>
         </template>
         <Divider class="my-2" />
-        <div class="mb-2">
+        <div v-if="computedRecipe.facility" class="mb-2">
             <span class="font-bold">{{ computedRecipe.numFacilitiesNeeded ==
                 1 ?
                 "Facility" : "Facilities" }}:
             </span>
             <img v-if="recipesStore.recipeMap[computedRecipe.facility] && recipesStore.recipeMap[computedRecipe.facility][0]"
                 class="inline w-5 h-5" :src="recipesStore.recipeMap[computedRecipe.facility][0].image"
-                :alt="computedRecipe.outputItem" />
+                :alt="computedRecipe.name" />
             {{ computedRecipe.numFacilitiesNeeded }} {{ computedRecipe.facility }}{{ computedRecipe.numFacilitiesNeeded == 1
                 ? "" : "s" }}
         </div>
@@ -72,7 +72,7 @@ onBeforeUpdate(() => {
                 <ScrollLink :targetId="(key as string)"
                     :callback="() => { recipesStore.setSelectedRecipe(key as string); }">
                     <img v-if="recipesStore.recipeMap[key] && recipesStore.recipeMap[key][0]" class="inline w-5 h-5"
-                        :src="recipesStore.recipeMap[key][0].image" :alt="computedRecipe.outputItem" />
+                        :src="recipesStore.recipeMap[key][0].image" :alt="computedRecipe.name" />
                     {{ key }}: {{ val }}/s
                 </ScrollLink>
             </li>
@@ -86,7 +86,7 @@ onBeforeUpdate(() => {
                     :callback="() => { recipesStore.setSelectedRecipe(parentRecipeName as string); }">
                     <img v-if="recipesStore.recipeMap[parentRecipeName] && recipesStore.recipeMap[parentRecipeName][0]"
                         class="inline w-5 h-5" :src="recipesStore.recipeMap[parentRecipeName][0].image"
-                        :alt="computedRecipe.outputItem" />
+                        :alt="computedRecipe.name" />
                     {{ parentRecipeName }} {{ usesStr }}
                 </ScrollLink>
             </li>

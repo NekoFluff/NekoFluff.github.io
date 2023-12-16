@@ -9,17 +9,22 @@ import { ref } from "vue";
 import RecipeOptionsCard from "@/components/RecipeOptionsCard.vue";
 import Section from "@/components/Section.vue";
 import { includes } from "lodash";
-import { type Recipe, type ComputedRecipe, type ComputedRecipeRequest, DysonSphereProgramApi } from "alex-api-typescript-client/api";
+import {
+    type Recipe,
+    type ComputedRecipe,
+    type GetDSPComputedRecipeRequestInner,
+    DysonSphereProgramApi,
+} from "alex-api-typescript-client/api";
 import PageViewTracker from "@/components/PageViewTracker.vue";
 
 const recipesStore = useRecipesStore()
 
 const depthModeEnabled = ref<boolean>(true)
-const selectedRecipeRequest = ref<ComputedRecipeRequest>()
+const selectedRecipeRequest = ref<GetDSPComputedRecipeRequestInner>()
 const computedRecipes = ref<ComputedRecipe[]>([])
 const recipeOptionsList = ref<Recipe[][]>([])
 
-const handleRecipeRequestClicked = (recipeRequest: ComputedRecipeRequest) => {
+const handleRecipeRequestClicked = (recipeRequest: GetDSPComputedRecipeRequestInner) => {
     selectedRecipeRequest.value = recipeRequest
     fetchData()
 }
@@ -73,7 +78,7 @@ recipesStore.$subscribe(async () => {
 
         <SearchBar :options="recipesStore.recipes.map((recipeList) => {
             return {
-                text: recipeList[0].outputItem,
+                text: recipeList[0].name,
                 image: recipeList[0].image
             }
         }).sort()" @searchResultClick="handleSearchResultClicked" />
