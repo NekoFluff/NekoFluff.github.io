@@ -67,8 +67,6 @@ onBeforeUpdate(() => {
         </div>
         <ul class="mb-2">
             <li v-for="(val, key) in computedRecipe.itemsConsumedPerSec">
-
-
                 <ScrollLink :targetId="(key as string)"
                     :callback="() => { recipesStore.setSelectedRecipe(key as string); }">
                     <img v-if="recipesStore.recipeMap[key] && recipesStore.recipeMap[key][0]" class="inline w-5 h-5"
