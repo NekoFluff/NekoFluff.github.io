@@ -3,6 +3,8 @@ import { computed } from 'vue';
 import ComputedRecipeGrid from './ComputedRecipeGrid.vue';
 import Divider from './Divider.vue';
 import type { ComputedRecipe } from "alex-api-typescript-client/api";
+import { useRecipesStore } from '@/stores/recipes';
+const recipesStore = useRecipesStore();
 
 const props = defineProps<{
     computedRecipes: ComputedRecipe[]
@@ -18,6 +20,21 @@ const depthSeparatedRecipes = computed(() => {
             if (result[depth] == undefined) { result[depth] = [] }
             result[depth].push(recipe)
         }
+    }
+
+    return result
+})
+
+const facilityCounts = computed(() => {
+    const result: { [key: string]: number } = {}
+
+    for (const recipe of props.computedRecipes) {
+        if (recipe.facility == undefined) {
+            continue
+        }
+
+        if (result[recipe.facility] == undefined) { result[recipe.facility] = 0 }
+        result[recipe.facility] += recipe.numFacilitiesNeeded || 0
     }
 
     return result
@@ -39,6 +56,17 @@ const depthSeparatedRecipes = computed(() => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div>
+            <div class="text-lg font-bold">Total Facility Count</div>
+            <ul>
+                <li v-for="count, facility in facilityCounts">
+                    <img v-if="recipesStore.recipeMap[facility] && recipesStore.recipeMap[facility][0]"
+                        class="inline w-5 h-5" :src="recipesStore.recipeMap[facility][0].image"
+                        :alt="facility.toString()" />
+                    {{ count }} {{ facility }}
+                </li>
+            </ul>
         </div>
         <div class="m-3">
             <div class="text-lg font-bold">JSON</div>
