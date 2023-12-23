@@ -102,7 +102,8 @@ recipesStore.$subscribe(async () => {
             <Section header="Need" class="flex-initial mx-3 bg-black">
                 <ComputedRecipeOutput :depthMode="depthModeEnabled" :computedRecipes="computedRecipes" />
             </Section>
-            <Section header="Alternate Recipes" class="flex-initial max-w-xs bg-black">
+            <Section v-if="recipeOptionsList && recipeOptionsList.length > 0" header="Alternate Recipes"
+                class="flex-initial max-w-xs bg-black">
                 <div v-for="recipeOptions of recipeOptionsList">
                     <RecipeOptionsCard :recipeRequest="selectedRecipeRequest" :options="recipeOptions" />
                 </div>
