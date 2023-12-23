@@ -35,7 +35,7 @@ const handleInput = debounce((value: string) => {
                 {{ recipeRequest.name }}
             </div>
 
-            <input class="text-black flex-initial w-10 rounded-md text-right px-0.5 outline-none" type="number" step="0.01"
+            <input class="text-black flex-initial w-10 rounded-md text-right px-0.5 outline-none" type="number" step="1"
                 placeholder="1.0" :value="rate" @input="handleInput(($event.target as HTMLInputElement).value)" /> <span
                 class="ml-0.5">/s</span>
             <button class="flex-initial ml-2 text-center rounded-md" @click="handleDelete">
