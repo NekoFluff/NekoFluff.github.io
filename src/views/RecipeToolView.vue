@@ -95,15 +95,15 @@ recipesStore.$subscribe(async () => {
             </div>
         </Section>
         <div v-if="selectedRecipeRequest != undefined" class="flex justify-between">
-            <Section header="Want" class="flex-initial max-w-xs bg-black">
+            <Section header="Want" class="flex-initial w-5/12 max-w-xs bg-black">
                 <ComputedRecipeRequestList :selectedRecipeRequest="selectedRecipeRequest"
                     @recipeRequestClick="handleRecipeRequestClicked" />
             </Section>
-            <Section header="Need" class="flex-initial mx-3 bg-black">
+            <Section header="Need" class="flex-initial w-full mx-3 bg-black">
                 <ComputedRecipeOutput :depthMode="depthModeEnabled" :computedRecipes="computedRecipes" />
             </Section>
             <Section v-if="recipeOptionsList && recipeOptionsList.length > 0" header="Alternate Recipes"
-                class="flex-initial max-w-xs bg-black">
+                class="flex-initial w-5/12 max-w-xs bg-black">
                 <div v-for="recipeOptions of recipeOptionsList">
                     <RecipeOptionsCard :recipeRequest="selectedRecipeRequest" :options="recipeOptions" />
                 </div>
