@@ -51,7 +51,7 @@ const fetchData = async () => {
     if (selectedRecipeRequest.value.rate <= 0) return;
 
     const reqBody = [selectedRecipeRequest.value]
-    const resp = await api.getDSPComputedRecipe(recipesStore.groupRecipes, reqBody)
+    const resp = await api.getDSPComputedRecipe(recipesStore.groupRecipes, recipesStore.assemblerLevel, reqBody)
 
     computedRecipes.value = resp.data
     recipeOptionsList.value = recipesStore.getRecipesWithOptions(resp.data)
@@ -87,6 +87,11 @@ recipesStore.$subscribe(async () => {
                     v-model="recipesStore.groupRecipes" />
             </div>
             <div class="mb-3 ml-4 text-sm ">Sort by Depth: <input class="ml-1" type="checkbox" v-model="depthModeEnabled" />
+            </div>
+            <div class="mb-3 ml-4 text-sm ">Assembling Machine Mk.:
+                <select class="ml-1 text-white bg-black border border-white" v-model=recipesStore.assemblerLevel>
+                    <option v-for="level in [1, 2, 3]">{{ level }}</option>
+                </select>
             </div>
         </Section>
         <div v-if="selectedRecipeRequest != undefined" class="flex justify-between">
