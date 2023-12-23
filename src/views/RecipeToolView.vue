@@ -88,7 +88,7 @@ recipesStore.$subscribe(async () => {
             </div>
             <div class="mb-3 ml-4 text-sm ">Sort by Depth: <input class="ml-1" type="checkbox" v-model="depthModeEnabled" />
             </div>
-            <div class="mb-3 ml-4 text-sm ">Assembling Machine Mk.:
+            <div class="mb-3 ml-4 text-sm ">Assembling Machine Mk.
                 <select class="ml-1 text-white bg-black border border-white" v-model=recipesStore.assemblerLevel>
                     <option v-for="level in [1, 2, 3]">{{ level }}</option>
                 </select>
