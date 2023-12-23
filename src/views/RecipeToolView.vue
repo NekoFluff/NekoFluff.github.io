@@ -46,6 +46,10 @@ const handleSearchResultClicked = (recipeName: string) => {
     })
 }
 
+const setAssemblerLevel = (level: 1 | 2 | 3) => {
+    recipesStore.assemblerLevel = level;
+}
+
 const fetchData = async () => {
     if (selectedRecipeRequest.value == undefined) return;
     if (selectedRecipeRequest.value.rate <= 0) return;
@@ -88,10 +92,22 @@ recipesStore.$subscribe(async () => {
             </div>
             <div class="mb-3 ml-4 text-sm ">Sort by Depth: <input class="ml-1" type="checkbox" v-model="depthModeEnabled" />
             </div>
-            <div class="mb-3 ml-4 text-sm ">Assembling Machine Mk.
-                <select class="ml-1 text-white bg-black border border-white" v-model=recipesStore.assemblerLevel>
-                    <option v-for="level in [1, 2, 3]">{{ level }}</option>
-                </select>
+            <div class="mb-3 ml-4 text-sm ">Default Assembling Machine:
+                <button @click="setAssemblerLevel(1)" class="p-1"
+                    :class="{ 'rounded-md bg-zinc-900 border border-white': recipesStore.assemblerLevel === 1 }">
+                    <img class="inline w-6 h-6" :src="recipesStore.recipeMap['Assembling Machine Mk.I'][0].image"
+                        :alt="recipesStore.recipeMap['Assembling Machine Mk.I'][0].name" />
+                </button>
+                <button @click="setAssemblerLevel(2)" class="p-1"
+                    :class="{ 'rounded-md bg-zinc-900 border border-white': recipesStore.assemblerLevel === 2 }">
+                    <img class="inline w-6 h-6" :src="recipesStore.recipeMap['Assembling Machine Mk.II'][0].image"
+                        :alt="recipesStore.recipeMap['Assembling Machine Mk.II'][0].name" />
+                </button>
+                <button @click="setAssemblerLevel(3)" class="p-1"
+                    :class="{ 'rounded-md bg-zinc-900 border border-white': recipesStore.assemblerLevel === 3 }">
+                    <img class="inline w-6 h-6" :src="recipesStore.recipeMap['Assembling Machine Mk.III'][0].image"
+                        :alt="recipesStore.recipeMap['Assembling Machine Mk.III'][0].name" />
+                </button>
             </div>
         </Section>
         <div v-if="selectedRecipeRequest != undefined" class="flex justify-between">
@@ -104,7 +120,7 @@ recipesStore.$subscribe(async () => {
             </Section>
             <Section v-if="recipeOptionsList && recipeOptionsList.length > 0" header="Alternate Recipes"
                 class="flex-initial w-5/12 max-w-xs bg-black">
-                <div v-for="recipeOptions of recipeOptionsList">
+                <div v-for=" recipeOptions  of  recipeOptionsList ">
                     <RecipeOptionsCard :recipeRequest="selectedRecipeRequest" :options="recipeOptions" />
                 </div>
             </Section>
