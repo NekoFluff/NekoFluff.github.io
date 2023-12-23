@@ -29,7 +29,12 @@ const handleRecipeRequestClicked = (recipeRequest: GetDSPComputedRecipeRequestIn
     fetchData()
 }
 
-const api = new DysonSphereProgramApi()
+let apiHost: string | undefined;
+if (import.meta.env.DEV) {
+  apiHost = 'http://localhost:8080';
+}
+
+const api = new DysonSphereProgramApi(undefined, apiHost);
 api.getDSPRecipes()
     .then((resp) => {
         recipesStore.setRecipes(resp.data)
