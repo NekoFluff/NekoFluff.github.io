@@ -18,7 +18,9 @@ export const useRecipesStore = defineStore("recipes", () => {
     });
     const recipeRequests = ref<{ [key: string]: GetDSPComputedRecipeRequestInner }>({});
     const groupRecipes = ref(true);
-    const assemblerLevel = ref<1 | 2 | 3 | undefined>(2);
+    const assemblerLevel = ref<1 | 2 | 3>(2);
+    const chemicalPlantLevel = ref<1 | 2>(1);
+    const smelterLevel = ref<1 | 2>(1);
 
     function setRecipes(r: Recipe[][]) {
         recipes.value = r;
@@ -78,6 +80,8 @@ export const useRecipesStore = defineStore("recipes", () => {
         recipeRequests,
         groupRecipes,
         assemblerLevel,
+        smelterLevel,
+        chemicalPlantLevel,
         addRequest,
         removeRequest,
         addRequestRequirement,

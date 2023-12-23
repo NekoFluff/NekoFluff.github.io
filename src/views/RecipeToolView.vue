@@ -50,12 +50,26 @@ const setAssemblerLevel = (level: 1 | 2 | 3) => {
     recipesStore.assemblerLevel = level;
 }
 
+const setChemicalPlantLevel = (level: 1 | 2) => {
+    recipesStore.chemicalPlantLevel = level;
+}
+
+const setSmelterLevel = (level: 1 | 2) => {
+    recipesStore.smelterLevel = level;
+}
+
 const fetchData = async () => {
     if (selectedRecipeRequest.value == undefined) return;
     if (selectedRecipeRequest.value.rate <= 0) return;
 
     const reqBody = [selectedRecipeRequest.value]
-    const resp = await api.getDSPComputedRecipe(recipesStore.groupRecipes, recipesStore.assemblerLevel, reqBody)
+    const resp = await api.getDSPComputedRecipe(
+        recipesStore.groupRecipes,
+        recipesStore.assemblerLevel,
+        recipesStore.chemicalPlantLevel,
+        recipesStore.smelterLevel,
+        reqBody,
+    )
 
     computedRecipes.value = resp.data
     recipeOptionsList.value = recipesStore.getRecipesWithOptions(resp.data)
@@ -108,6 +122,31 @@ recipesStore.$subscribe(async () => {
                     <img class="inline w-6 h-6" :src="recipesStore.recipeMap['Assembling Machine Mk.III'][0].image"
                         :alt="recipesStore.recipeMap['Assembling Machine Mk.III'][0].name" />
                 </button>
+            </div>
+            <div class="mb-3 ml-4 text-sm ">Default Smelter:
+                <button @click="setSmelterLevel(1)" class="p-1"
+                    :class="{ 'rounded-md bg-zinc-900 border border-white': recipesStore.smelterLevel === 1 }">
+                    <img class="inline w-6 h-6" :src="recipesStore.recipeMap['Arc Smelter'][0].image"
+                        :alt="recipesStore.recipeMap['Arc Smelter'][0].name" />
+                </button>
+                <button @click="setSmelterLevel(2)" class="p-1"
+                    :class="{ 'rounded-md bg-zinc-900 border border-white': recipesStore.smelterLevel === 2 }">
+                    <img class="inline w-6 h-6" :src="recipesStore.recipeMap['Plane Smelter'][0].image"
+                        :alt="recipesStore.recipeMap['Plane Smelter'][0].name" />
+                </button>
+            </div>
+            <div class="mb-3 ml-4 text-sm ">Default Chemical Plant:
+                <button @click="setChemicalPlantLevel(1)" class="p-1"
+                    :class="{ 'rounded-md bg-zinc-900 border border-white': recipesStore.chemicalPlantLevel === 1 }">
+                    <img class="inline w-6 h-6" :src="recipesStore.recipeMap['Chemical Plant'][0].image"
+                        :alt="recipesStore.recipeMap['Chemical Plant'][0].name" />
+                </button>
+                <button @click="setChemicalPlantLevel(2)" class="p-1"
+                    :class="{ 'rounded-md bg-zinc-900 border border-white': recipesStore.chemicalPlantLevel === 2 }">
+                    <img class="inline w-6 h-6" :src="recipesStore.recipeMap['Quantum Chemical Plant'][0].image"
+                        :alt="recipesStore.recipeMap['Quantum Chemical Plant'][0].name" />
+                </button>
+
             </div>
         </Section>
         <div v-if="selectedRecipeRequest != undefined" class="flex justify-between">
